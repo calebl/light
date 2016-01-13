@@ -8,13 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+import com.activeandroid.query.Select;
+import com.bigndesign.light.Model.Book;
+import com.bigndesign.light.Model.Chapter;
+import com.bigndesign.light.Model.Verses;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class ReadActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class ReadActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String versesString = loadJSONFromAsset();
+        String versesString = loadVerses();
         try {
             JSONObject versesObj = new JSONObject(versesString);
             String text = versesObj.getString("text");
@@ -41,24 +42,6 @@ public class ReadActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        FloatingActionButton nextChapter = (FloatingActionButton) findViewById(R.id.nextChapter);
-//        nextChapter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//
-//        FloatingActionButton prevChapter = (FloatingActionButton) findViewById(R.id.prevChapter);
-//        prevChapter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
@@ -72,28 +55,20 @@ public class ReadActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public String loadJSONFromAsset() {
+    public String loadVerses() {
         String json = null;
-        try {
 
-            InputStream is = getAssets().open("spanish/verses/spa-BHTI_1Chr.1.json");
+        Book book = new Select().from(Book.class).orderBy("bookOrder").executeSingle();
 
-            int size = is.available();
+        Chapter chapter = new Select().from(Chapter.class).where("book = ?", book.getId()).orderBy("chapterOrder").executeSingle();
 
-            byte[] buffer = new byte[size];
+        Verses verses = chapter.verses;
 
-            is.read(buffer);
-
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
+        if(verses == null){
+            verses = new Select().from(Verses.class).where("chapter = ?", chapter).executeSingle();
         }
-        return json;
+
+        return verses.text;
 
     }
 

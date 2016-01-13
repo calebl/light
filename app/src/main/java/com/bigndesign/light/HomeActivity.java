@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
-public class BlankActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class BlankActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null)
             getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_blank);
+        setContentView(R.layout.activity_home);
 
         final Intent readIntent = new Intent(this, ReadActivity.class);
         final Intent askIntent = new Intent(this, AskActivity.class);

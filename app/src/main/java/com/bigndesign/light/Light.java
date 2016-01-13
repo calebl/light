@@ -1,11 +1,14 @@
 package com.bigndesign.light;
 
-import android.app.Application;
+import com.activeandroid.ActiveAndroid;
 
-public class Light extends Application {
+public class Light extends com.activeandroid.app.Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        ActiveAndroid.initialize(this);
+
+
     }
 }

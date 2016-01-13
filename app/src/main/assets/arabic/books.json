@@ -1,1 +1,662 @@
-[{"version_id":"68","name":"\u0627\u0644\u062a\u0643\u0648\u064a\u0646","abbr":"Gen","ord":"1","book_group_id":"0","testament":"OT","id":"arb-GNA93:Gen","osis_end":"arb-GNA93:Gen.50.26"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u062e\u0631\u0648\u062c","abbr":"Exod","ord":"2","book_group_id":"0","testament":"OT","id":"arb-GNA93:Exod","osis_end":"arb-GNA93:Exod.40.38"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u0644\u0627\u0648\u064a\u0640\u064a\u0646","abbr":"Lev","ord":"3","book_group_id":"0","testament":"OT","id":"arb-GNA93:Lev","osis_end":"arb-GNA93:Lev.27.34"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u0639\u062f\u062f","abbr":"Num","ord":"4","book_group_id":"0","testament":"OT","id":"arb-GNA93:Num","osis_end":"arb-GNA93:Num.36.13"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u062a\u0640\u062b\u0646\u064a\u0629","abbr":"Deut","ord":"5","book_group_id":"0","testament":"OT","id":"arb-GNA93:Deut","osis_end":"arb-GNA93:Deut.34.12"},{"version_id":"68","name":"\u0633\u0641\u0631 \u064a\u0634\u0648\u0639","abbr":"Josh","ord":"6","book_group_id":"0","testament":"OT","id":"arb-GNA93:Josh","osis_end":"arb-GNA93:Josh.24.33"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u0642\u0636\u0627\u0629","abbr":"Judg","ord":"7","book_group_id":"0","testament":"OT","id":"arb-GNA93:Judg","osis_end":"arb-GNA93:Judg.21.25"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0631\u0627\u0639\u0648\u062b","abbr":"Ruth","ord":"8","book_group_id":"0","testament":"OT","id":"arb-GNA93:Ruth","osis_end":"arb-GNA93:Ruth.4.22"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0635\u0645\u0648\u0626\u064a\u0644 \u0627\u0644\u0623\u0648\u0644","abbr":"1Sam","ord":"9","book_group_id":"0","testament":"OT","id":"arb-GNA93:1Sam","osis_end":"arb-GNA93:1Sam.31.13"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0635\u0645\u0648\u0626\u064a\u0644 \u0627\u0644\u062b\u0627\u0646\u064a","abbr":"2Sam","ord":"10","book_group_id":"0","testament":"OT","id":"arb-GNA93:2Sam","osis_end":"arb-GNA93:2Sam.24.25"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u0645\u0644\u0648\u0643 \u0627\u0644\u0623\u0648\u0644","abbr":"1Kgs","ord":"11","book_group_id":"0","testament":"OT","id":"arb-GNA93:1Kgs","osis_end":"arb-GNA93:1Kgs.22.54"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u0645\u0644\u0648\u0643 \u0627\u0644\u062b\u0627\u0646\u064a","abbr":"2Kgs","ord":"12","book_group_id":"0","testament":"OT","id":"arb-GNA93:2Kgs","osis_end":"arb-GNA93:2Kgs.25.30"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0623\u062e\u0628\u0627\u0631 \u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u0623\u0648\u0644","abbr":"1Chr","ord":"13","book_group_id":"0","testament":"OT","id":"arb-GNA93:1Chr","osis_end":"arb-GNA93:1Chr.29.30"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0623\u062e\u0628\u0627\u0631 \u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u062b\u0627\u0646\u064a","abbr":"2Chr","ord":"14","book_group_id":"0","testament":"OT","id":"arb-GNA93:2Chr","osis_end":"arb-GNA93:2Chr.36.23"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0639\u0632\u0631\u0627","abbr":"Ezra","ord":"15","book_group_id":"0","testament":"OT","id":"arb-GNA93:Ezra","osis_end":"arb-GNA93:Ezra.10.44"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0646\u062d\u0645\u064a\u0627","abbr":"Neh","ord":"16","book_group_id":"0","testament":"OT","id":"arb-GNA93:Neh","osis_end":"arb-GNA93:Neh.13.31"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0623\u0633\u062a\u064a\u0631","abbr":"Esth","ord":"17","book_group_id":"0","testament":"OT","id":"arb-GNA93:Esth","osis_end":"arb-GNA93:Esth.10.3"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0623\u064a\u0648\u0628","abbr":"Job","ord":"18","book_group_id":"0","testament":"OT","id":"arb-GNA93:Job","osis_end":"arb-GNA93:Job.42.16"},{"version_id":"68","name":"\u0627\u0644\u0645\u0632\u0627\u0645\u064a\u0631","abbr":"Ps","ord":"19","book_group_id":"0","testament":"OT","id":"arb-GNA93:Ps","osis_end":"arb-GNA93:Ps.150.6"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u0623\u0645\u062b\u0627\u0644","abbr":"Prov","ord":"20","book_group_id":"0","testament":"OT","id":"arb-GNA93:Prov","osis_end":"arb-GNA93:Prov.31.31"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0644\u062c\u0627\u0645\u0639\u0629","abbr":"Eccl","ord":"21","book_group_id":"0","testament":"OT","id":"arb-GNA93:Eccl","osis_end":"arb-GNA93:Eccl.12.14"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0646\u0634\u064a\u062f \u0627\u0644\u0623\u0646\u0634\u0627\u062f","abbr":"Song","ord":"22","book_group_id":"0","testament":"OT","id":"arb-GNA93:Song","osis_end":"arb-GNA93:Song.8.14"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0625\u0634\u0639\u064a\u0627","abbr":"Isa","ord":"23","book_group_id":"0","testament":"OT","id":"arb-GNA93:Isa","osis_end":"arb-GNA93:Isa.66.24"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0627\u0631\u0645\u064a\u0627","abbr":"Jer","ord":"24","book_group_id":"0","testament":"OT","id":"arb-GNA93:Jer","osis_end":"arb-GNA93:Jer.52.34"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0645\u0631\u0627\u062b\u064a \u0627\u0631\u0645\u064a\u0627","abbr":"Lam","ord":"25","book_group_id":"0","testament":"OT","id":"arb-GNA93:Lam","osis_end":"arb-GNA93:Lam.5.22"},{"version_id":"68","name":"\u0633\u0641\u0631 \u062d\u0632\u0642\u064a\u0627\u0644","abbr":"Ezek","ord":"26","book_group_id":"0","testament":"OT","id":"arb-GNA93:Ezek","osis_end":"arb-GNA93:Ezek.48.35"},{"version_id":"68","name":"\u0633\u0641\u0631 \u062f\u0627\u0646\u064a\u0627\u0644","abbr":"Dan","ord":"27","book_group_id":"0","testament":"OT","id":"arb-GNA93:Dan","osis_end":"arb-GNA93:Dan.12.13"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0647\u0648\u0634\u0639","abbr":"Hos","ord":"28","book_group_id":"0","testament":"OT","id":"arb-GNA93:Hos","osis_end":"arb-GNA93:Hos.14.10"},{"version_id":"68","name":"\u0633\u0641\u0631 \u064a\u0648\u0626\u064a\u0644","abbr":"Joel","ord":"29","book_group_id":"0","testament":"OT","id":"arb-GNA93:Joel","osis_end":"arb-GNA93:Joel.4.21"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0639\u0627\u0645\u0648\u0633","abbr":"Amos","ord":"30","book_group_id":"0","testament":"OT","id":"arb-GNA93:Amos","osis_end":"arb-GNA93:Amos.9.15"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0639\u0648\u0628\u0640\u064a\u062f\u064a\u0627","abbr":"Obad","ord":"31","book_group_id":"0","testament":"OT","id":"arb-GNA93:Obad","osis_end":"arb-GNA93:Obad.1.21"},{"version_id":"68","name":"\u0633\u0641\u0631 \u064a\u0648\u0646\u0627\u0646","abbr":"Jonah","ord":"32","book_group_id":"0","testament":"OT","id":"arb-GNA93:Jonah","osis_end":"arb-GNA93:Jonah.4.11"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0645\u064a\u062e\u0627","abbr":"Mic","ord":"33","book_group_id":"0","testament":"OT","id":"arb-GNA93:Mic","osis_end":"arb-GNA93:Mic.7.20"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0646\u0627\u062d\u0648\u0645","abbr":"Nah","ord":"34","book_group_id":"0","testament":"OT","id":"arb-GNA93:Nah","osis_end":"arb-GNA93:Nah.3.19"},{"version_id":"68","name":"\u0633\u0641\u0631 \u062d\u0628\u0642\u0648\u0642","abbr":"Hab","ord":"35","book_group_id":"0","testament":"OT","id":"arb-GNA93:Hab","osis_end":"arb-GNA93:Hab.3.19"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0635\u0641\u0646\u064a\u0627","abbr":"Zeph","ord":"36","book_group_id":"0","testament":"OT","id":"arb-GNA93:Zeph","osis_end":"arb-GNA93:Zeph.3.20"},{"version_id":"68","name":"\u0633\u0641\u0631 \u062d\u062c\u0627\u064a","abbr":"Hag","ord":"37","book_group_id":"0","testament":"OT","id":"arb-GNA93:Hag","osis_end":"arb-GNA93:Hag.2.23"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0632\u0643\u0631\u064a\u0627","abbr":"Zech","ord":"38","book_group_id":"0","testament":"OT","id":"arb-GNA93:Zech","osis_end":"arb-GNA93:Zech.14.21"},{"version_id":"68","name":"\u0633\u0641\u0631 \u0645\u0644\u0627\u062e\u064a","abbr":"Mal","ord":"39","book_group_id":"0","testament":"OT","id":"arb-GNA93:Mal","osis_end":"arb-GNA93:Mal.3.24"},{"version_id":"68","name":"\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u0645\u062a\u0649","abbr":"Matt","ord":"40","book_group_id":"0","testament":"NT","id":"arb-GNA93:Matt","osis_end":"arb-GNA93:Matt.28.20"},{"version_id":"68","name":"\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u0645\u0631\u0642\u0633","abbr":"Mark","ord":"41","book_group_id":"0","testament":"NT","id":"arb-GNA93:Mark","osis_end":"arb-GNA93:Mark.16.20"},{"version_id":"68","name":"\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u0644\u0648\u0642\u0627","abbr":"Luke","ord":"42","book_group_id":"0","testament":"NT","id":"arb-GNA93:Luke","osis_end":"arb-GNA93:Luke.24.53"},{"version_id":"68","name":"\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u064a\u0648\u062d\u0646\u0627","abbr":"John","ord":"43","book_group_id":"0","testament":"NT","id":"arb-GNA93:John","osis_end":"arb-GNA93:John.21.25"},{"version_id":"68","name":"\u0623\u0639\u0645\u0627\u0644 \u0627\u0644\u0631\u0633\u0644","abbr":"Acts","ord":"44","book_group_id":"0","testament":"NT","id":"arb-GNA93:Acts","osis_end":"arb-GNA93:Acts.28.31"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0631\u0648\u0645\u0629","abbr":"Rom","ord":"45","book_group_id":"0","testament":"NT","id":"arb-GNA93:Rom","osis_end":"arb-GNA93:Rom.16.27"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0643\u0648\u0631\u0646\u062b\u0648\u0633 \u0627\u0644\u0623\u0648\u0644\u0649","abbr":"1Cor","ord":"46","book_group_id":"0","testament":"NT","id":"arb-GNA93:1Cor","osis_end":"arb-GNA93:1Cor.16.24"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0643\u0648\u0631\u0646\u062b\u0648\u0633 \u0627\u0644\u062b\u0627\u0646\u064a\u0629","abbr":"2Cor","ord":"47","book_group_id":"0","testament":"NT","id":"arb-GNA93:2Cor","osis_end":"arb-GNA93:2Cor.13.13"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u063a\u0644\u0627\u0637\u064a\u0629","abbr":"Gal","ord":"48","book_group_id":"0","testament":"NT","id":"arb-GNA93:Gal","osis_end":"arb-GNA93:Gal.6.18"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0623\u0641\u0633\u0633","abbr":"Eph","ord":"49","book_group_id":"0","testament":"NT","id":"arb-GNA93:Eph","osis_end":"arb-GNA93:Eph.6.24"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0641\u064a\u0644\u0628\u0640\u0640\u064a","abbr":"Phil","ord":"50","book_group_id":"0","testament":"NT","id":"arb-GNA93:Phil","osis_end":"arb-GNA93:Phil.4.23"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0643\u0648\u0644\u0648\u0633\u064a","abbr":"Col","ord":"51","book_group_id":"0","testament":"NT","id":"arb-GNA93:Col","osis_end":"arb-GNA93:Col.4.18"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u062a\u0633\u0627\u0644\u0648\u0646\u064a\u0643\u064a \u0627\u0644\u0623\u0648\u0644\u0649","abbr":"1Thess","ord":"52","book_group_id":"0","testament":"NT","id":"arb-GNA93:1Thess","osis_end":"arb-GNA93:1Thess.5.28"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u062a\u0633\u0627\u0644\u0648\u0646\u064a\u0643\u064a \u0627\u0644\u062b\u0627\u0646\u064a\u0629","abbr":"2Thess","ord":"53","book_group_id":"0","testament":"NT","id":"arb-GNA93:2Thess","osis_end":"arb-GNA93:2Thess.3.18"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0627\u0644\u0623\u0648\u0644\u0649 \u0625\u0644\u0649 \u062a\u064a\u0645\u0648\u062b\u0627\u0648\u0633","abbr":"1Tim","ord":"54","book_group_id":"0","testament":"NT","id":"arb-GNA93:1Tim","osis_end":"arb-GNA93:1Tim.6.21"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0627\u0644\u062b\u0627\u0646\u064a\u0629 \u0625\u0644\u0649 \u062a\u064a\u0645\u0648\u062b\u0627\u0648\u0633","abbr":"2Tim","ord":"55","book_group_id":"0","testament":"NT","id":"arb-GNA93:2Tim","osis_end":"arb-GNA93:2Tim.4.22"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0625\u0644\u0649 \u062a\u064a\u0637\u0633","abbr":"Titus","ord":"56","book_group_id":"0","testament":"NT","id":"arb-GNA93:Titus","osis_end":"arb-GNA93:Titus.3.15"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0625\u0644\u0649 \u0641\u064a\u0644\u0645\u0648\u0646","abbr":"Phlm","ord":"57","book_group_id":"0","testament":"NT","id":"arb-GNA93:Phlm","osis_end":"arb-GNA93:Phlm.1.25"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0625\u0644\u0649 \u0627\u0644\u0639\u0628\u0631\u0627\u0646\u064a\u064a\u0646","abbr":"Heb","ord":"58","book_group_id":"0","testament":"NT","id":"arb-GNA93:Heb","osis_end":"arb-GNA93:Heb.13.25"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u064a\u0639\u0642\u0648\u0628","abbr":"Jas","ord":"59","book_group_id":"0","testament":"NT","id":"arb-GNA93:Jas","osis_end":"arb-GNA93:Jas.5.20"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0628\u0637\u0631\u0633 \u0627\u0644\u0623\u0648\u0644\u0649","abbr":"1Pet","ord":"60","book_group_id":"0","testament":"NT","id":"arb-GNA93:1Pet","osis_end":"arb-GNA93:1Pet.5.14"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u0628\u0637\u0631\u0633 \u0627\u0644\u062b\u0627\u0646\u064a\u0629","abbr":"2Pet","ord":"61","book_group_id":"0","testament":"NT","id":"arb-GNA93:2Pet","osis_end":"arb-GNA93:2Pet.3.18"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u064a\u0648\u062d\u0646\u0627 \u0627\u0644\u0623\u0648\u0644\u0649","abbr":"1John","ord":"62","book_group_id":"0","testament":"NT","id":"arb-GNA93:1John","osis_end":"arb-GNA93:1John.5.21"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u064a\u0648\u062d\u0646\u0627 \u0627\u0644\u062b\u0627\u0646\u064a\u0629","abbr":"2John","ord":"63","book_group_id":"0","testament":"NT","id":"arb-GNA93:2John","osis_end":"arb-GNA93:2John.1.13"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u064a\u0648\u062d\u0646\u0627 \u0627\u0644\u062b\u0627\u0644\u062b\u0629","abbr":"3John","ord":"64","book_group_id":"0","testament":"NT","id":"arb-GNA93:3John","osis_end":"arb-GNA93:3John.1.15"},{"version_id":"68","name":"\u0631\u0633\u0627\u0644\u0629 \u064a\u0647\u0648\u0630\u0627","abbr":"Jude","ord":"65","book_group_id":"0","testament":"NT","id":"arb-GNA93:Jude","osis_end":"arb-GNA93:Jude.1.25"},{"version_id":"68","name":"\u0631\u0624\u064a\u0627 \u064a\u0648\u062d\u0646\u0627","abbr":"Rev","ord":"66","book_group_id":"0","testament":"NT","id":"arb-GNA93:Rev","osis_end":"arb-GNA93:Rev.22.21"}]
+[
+  {
+    "version_id": "68",
+    "name": "\u0627\u0644\u062a\u0643\u0648\u064a\u0646",
+    "abbr": "Gen",
+    "ord": "1",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Gen",
+    "osis_end": "arb-GNA93:Gen.50.26"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u062e\u0631\u0648\u062c",
+    "abbr": "Exod",
+    "ord": "2",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Exod",
+    "osis_end": "arb-GNA93:Exod.40.38"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u0644\u0627\u0648\u064a\u0640\u064a\u0646",
+    "abbr": "Lev",
+    "ord": "3",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Lev",
+    "osis_end": "arb-GNA93:Lev.27.34"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u0639\u062f\u062f",
+    "abbr": "Num",
+    "ord": "4",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Num",
+    "osis_end": "arb-GNA93:Num.36.13"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u062a\u0640\u062b\u0646\u064a\u0629",
+    "abbr": "Deut",
+    "ord": "5",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Deut",
+    "osis_end": "arb-GNA93:Deut.34.12"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u064a\u0634\u0648\u0639",
+    "abbr": "Josh",
+    "ord": "6",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Josh",
+    "osis_end": "arb-GNA93:Josh.24.33"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u0642\u0636\u0627\u0629",
+    "abbr": "Judg",
+    "ord": "7",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Judg",
+    "osis_end": "arb-GNA93:Judg.21.25"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0631\u0627\u0639\u0648\u062b",
+    "abbr": "Ruth",
+    "ord": "8",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Ruth",
+    "osis_end": "arb-GNA93:Ruth.4.22"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0635\u0645\u0648\u0626\u064a\u0644 \u0627\u0644\u0623\u0648\u0644",
+    "abbr": "1Sam",
+    "ord": "9",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:1Sam",
+    "osis_end": "arb-GNA93:1Sam.31.13"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0635\u0645\u0648\u0626\u064a\u0644 \u0627\u0644\u062b\u0627\u0646\u064a",
+    "abbr": "2Sam",
+    "ord": "10",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:2Sam",
+    "osis_end": "arb-GNA93:2Sam.24.25"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u0645\u0644\u0648\u0643 \u0627\u0644\u0623\u0648\u0644",
+    "abbr": "1Kgs",
+    "ord": "11",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:1Kgs",
+    "osis_end": "arb-GNA93:1Kgs.22.54"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u0645\u0644\u0648\u0643 \u0627\u0644\u062b\u0627\u0646\u064a",
+    "abbr": "2Kgs",
+    "ord": "12",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:2Kgs",
+    "osis_end": "arb-GNA93:2Kgs.25.30"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0623\u062e\u0628\u0627\u0631 \u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u0623\u0648\u0644",
+    "abbr": "1Chr",
+    "ord": "13",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:1Chr",
+    "osis_end": "arb-GNA93:1Chr.29.30"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0623\u062e\u0628\u0627\u0631 \u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u062b\u0627\u0646\u064a",
+    "abbr": "2Chr",
+    "ord": "14",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:2Chr",
+    "osis_end": "arb-GNA93:2Chr.36.23"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0639\u0632\u0631\u0627",
+    "abbr": "Ezra",
+    "ord": "15",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Ezra",
+    "osis_end": "arb-GNA93:Ezra.10.44"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0646\u062d\u0645\u064a\u0627",
+    "abbr": "Neh",
+    "ord": "16",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Neh",
+    "osis_end": "arb-GNA93:Neh.13.31"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0623\u0633\u062a\u064a\u0631",
+    "abbr": "Esth",
+    "ord": "17",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Esth",
+    "osis_end": "arb-GNA93:Esth.10.3"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0623\u064a\u0648\u0628",
+    "abbr": "Job",
+    "ord": "18",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Job",
+    "osis_end": "arb-GNA93:Job.42.16"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0627\u0644\u0645\u0632\u0627\u0645\u064a\u0631",
+    "abbr": "Ps",
+    "ord": "19",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Ps",
+    "osis_end": "arb-GNA93:Ps.150.6"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u0623\u0645\u062b\u0627\u0644",
+    "abbr": "Prov",
+    "ord": "20",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Prov",
+    "osis_end": "arb-GNA93:Prov.31.31"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0644\u062c\u0627\u0645\u0639\u0629",
+    "abbr": "Eccl",
+    "ord": "21",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Eccl",
+    "osis_end": "arb-GNA93:Eccl.12.14"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0646\u0634\u064a\u062f \u0627\u0644\u0623\u0646\u0634\u0627\u062f",
+    "abbr": "Song",
+    "ord": "22",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Song",
+    "osis_end": "arb-GNA93:Song.8.14"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0625\u0634\u0639\u064a\u0627",
+    "abbr": "Isa",
+    "ord": "23",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Isa",
+    "osis_end": "arb-GNA93:Isa.66.24"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0627\u0631\u0645\u064a\u0627",
+    "abbr": "Jer",
+    "ord": "24",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Jer",
+    "osis_end": "arb-GNA93:Jer.52.34"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0645\u0631\u0627\u062b\u064a \u0627\u0631\u0645\u064a\u0627",
+    "abbr": "Lam",
+    "ord": "25",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Lam",
+    "osis_end": "arb-GNA93:Lam.5.22"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u062d\u0632\u0642\u064a\u0627\u0644",
+    "abbr": "Ezek",
+    "ord": "26",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Ezek",
+    "osis_end": "arb-GNA93:Ezek.48.35"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u062f\u0627\u0646\u064a\u0627\u0644",
+    "abbr": "Dan",
+    "ord": "27",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Dan",
+    "osis_end": "arb-GNA93:Dan.12.13"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0647\u0648\u0634\u0639",
+    "abbr": "Hos",
+    "ord": "28",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Hos",
+    "osis_end": "arb-GNA93:Hos.14.10"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u064a\u0648\u0626\u064a\u0644",
+    "abbr": "Joel",
+    "ord": "29",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Joel",
+    "osis_end": "arb-GNA93:Joel.4.21"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0639\u0627\u0645\u0648\u0633",
+    "abbr": "Amos",
+    "ord": "30",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Amos",
+    "osis_end": "arb-GNA93:Amos.9.15"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0639\u0648\u0628\u0640\u064a\u062f\u064a\u0627",
+    "abbr": "Obad",
+    "ord": "31",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Obad",
+    "osis_end": "arb-GNA93:Obad.1.21"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u064a\u0648\u0646\u0627\u0646",
+    "abbr": "Jonah",
+    "ord": "32",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Jonah",
+    "osis_end": "arb-GNA93:Jonah.4.11"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0645\u064a\u062e\u0627",
+    "abbr": "Mic",
+    "ord": "33",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Mic",
+    "osis_end": "arb-GNA93:Mic.7.20"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0646\u0627\u062d\u0648\u0645",
+    "abbr": "Nah",
+    "ord": "34",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Nah",
+    "osis_end": "arb-GNA93:Nah.3.19"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u062d\u0628\u0642\u0648\u0642",
+    "abbr": "Hab",
+    "ord": "35",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Hab",
+    "osis_end": "arb-GNA93:Hab.3.19"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0635\u0641\u0646\u064a\u0627",
+    "abbr": "Zeph",
+    "ord": "36",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Zeph",
+    "osis_end": "arb-GNA93:Zeph.3.20"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u062d\u062c\u0627\u064a",
+    "abbr": "Hag",
+    "ord": "37",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Hag",
+    "osis_end": "arb-GNA93:Hag.2.23"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0632\u0643\u0631\u064a\u0627",
+    "abbr": "Zech",
+    "ord": "38",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Zech",
+    "osis_end": "arb-GNA93:Zech.14.21"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0633\u0641\u0631 \u0645\u0644\u0627\u062e\u064a",
+    "abbr": "Mal",
+    "ord": "39",
+    "book_group_id": "0",
+    "testament": "OT",
+    "id": "arb-GNA93:Mal",
+    "osis_end": "arb-GNA93:Mal.3.24"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u0645\u062a\u0649",
+    "abbr": "Matt",
+    "ord": "40",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Matt",
+    "osis_end": "arb-GNA93:Matt.28.20"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u0645\u0631\u0642\u0633",
+    "abbr": "Mark",
+    "ord": "41",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Mark",
+    "osis_end": "arb-GNA93:Mark.16.20"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u0644\u0648\u0642\u0627",
+    "abbr": "Luke",
+    "ord": "42",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Luke",
+    "osis_end": "arb-GNA93:Luke.24.53"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0627\u0644\u0628\u0634\u0627\u0631\u0629 \u0643\u0645\u0627 \u062f\u0648\u0651\u0646\u0647\u0627 \u064a\u0648\u062d\u0646\u0627",
+    "abbr": "John",
+    "ord": "43",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:John",
+    "osis_end": "arb-GNA93:John.21.25"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0623\u0639\u0645\u0627\u0644 \u0627\u0644\u0631\u0633\u0644",
+    "abbr": "Acts",
+    "ord": "44",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Acts",
+    "osis_end": "arb-GNA93:Acts.28.31"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0631\u0648\u0645\u0629",
+    "abbr": "Rom",
+    "ord": "45",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Rom",
+    "osis_end": "arb-GNA93:Rom.16.27"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0643\u0648\u0631\u0646\u062b\u0648\u0633 \u0627\u0644\u0623\u0648\u0644\u0649",
+    "abbr": "1Cor",
+    "ord": "46",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:1Cor",
+    "osis_end": "arb-GNA93:1Cor.16.24"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0643\u0648\u0631\u0646\u062b\u0648\u0633 \u0627\u0644\u062b\u0627\u0646\u064a\u0629",
+    "abbr": "2Cor",
+    "ord": "47",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:2Cor",
+    "osis_end": "arb-GNA93:2Cor.13.13"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u063a\u0644\u0627\u0637\u064a\u0629",
+    "abbr": "Gal",
+    "ord": "48",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Gal",
+    "osis_end": "arb-GNA93:Gal.6.18"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0623\u0641\u0633\u0633",
+    "abbr": "Eph",
+    "ord": "49",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Eph",
+    "osis_end": "arb-GNA93:Eph.6.24"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0641\u064a\u0644\u0628\u0640\u0640\u064a",
+    "abbr": "Phil",
+    "ord": "50",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Phil",
+    "osis_end": "arb-GNA93:Phil.4.23"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0643\u0648\u0644\u0648\u0633\u064a",
+    "abbr": "Col",
+    "ord": "51",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Col",
+    "osis_end": "arb-GNA93:Col.4.18"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u062a\u0633\u0627\u0644\u0648\u0646\u064a\u0643\u064a \u0627\u0644\u0623\u0648\u0644\u0649",
+    "abbr": "1Thess",
+    "ord": "52",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:1Thess",
+    "osis_end": "arb-GNA93:1Thess.5.28"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u062a\u0633\u0627\u0644\u0648\u0646\u064a\u0643\u064a \u0627\u0644\u062b\u0627\u0646\u064a\u0629",
+    "abbr": "2Thess",
+    "ord": "53",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:2Thess",
+    "osis_end": "arb-GNA93:2Thess.3.18"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0627\u0644\u0623\u0648\u0644\u0649 \u0625\u0644\u0649 \u062a\u064a\u0645\u0648\u062b\u0627\u0648\u0633",
+    "abbr": "1Tim",
+    "ord": "54",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:1Tim",
+    "osis_end": "arb-GNA93:1Tim.6.21"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0627\u0644\u062b\u0627\u0646\u064a\u0629 \u0625\u0644\u0649 \u062a\u064a\u0645\u0648\u062b\u0627\u0648\u0633",
+    "abbr": "2Tim",
+    "ord": "55",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:2Tim",
+    "osis_end": "arb-GNA93:2Tim.4.22"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0625\u0644\u0649 \u062a\u064a\u0637\u0633",
+    "abbr": "Titus",
+    "ord": "56",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Titus",
+    "osis_end": "arb-GNA93:Titus.3.15"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0628\u0648\u0644\u0633 \u0625\u0644\u0649 \u0641\u064a\u0644\u0645\u0648\u0646",
+    "abbr": "Phlm",
+    "ord": "57",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Phlm",
+    "osis_end": "arb-GNA93:Phlm.1.25"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0625\u0644\u0649 \u0627\u0644\u0639\u0628\u0631\u0627\u0646\u064a\u064a\u0646",
+    "abbr": "Heb",
+    "ord": "58",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Heb",
+    "osis_end": "arb-GNA93:Heb.13.25"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u064a\u0639\u0642\u0648\u0628",
+    "abbr": "Jas",
+    "ord": "59",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Jas",
+    "osis_end": "arb-GNA93:Jas.5.20"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0628\u0637\u0631\u0633 \u0627\u0644\u0623\u0648\u0644\u0649",
+    "abbr": "1Pet",
+    "ord": "60",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:1Pet",
+    "osis_end": "arb-GNA93:1Pet.5.14"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u0628\u0637\u0631\u0633 \u0627\u0644\u062b\u0627\u0646\u064a\u0629",
+    "abbr": "2Pet",
+    "ord": "61",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:2Pet",
+    "osis_end": "arb-GNA93:2Pet.3.18"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u064a\u0648\u062d\u0646\u0627 \u0627\u0644\u0623\u0648\u0644\u0649",
+    "abbr": "1John",
+    "ord": "62",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:1John",
+    "osis_end": "arb-GNA93:1John.5.21"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u064a\u0648\u062d\u0646\u0627 \u0627\u0644\u062b\u0627\u0646\u064a\u0629",
+    "abbr": "2John",
+    "ord": "63",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:2John",
+    "osis_end": "arb-GNA93:2John.1.13"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u064a\u0648\u062d\u0646\u0627 \u0627\u0644\u062b\u0627\u0644\u062b\u0629",
+    "abbr": "3John",
+    "ord": "64",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:3John",
+    "osis_end": "arb-GNA93:3John.1.15"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0633\u0627\u0644\u0629 \u064a\u0647\u0648\u0630\u0627",
+    "abbr": "Jude",
+    "ord": "65",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Jude",
+    "osis_end": "arb-GNA93:Jude.1.25"
+  },
+  {
+    "version_id": "68",
+    "name": "\u0631\u0624\u064a\u0627 \u064a\u0648\u062d\u0646\u0627",
+    "abbr": "Rev",
+    "ord": "66",
+    "book_group_id": "0",
+    "testament": "NT",
+    "id": "arb-GNA93:Rev",
+    "osis_end": "arb-GNA93:Rev.22.21"
+  }
+]

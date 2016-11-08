@@ -1,13 +1,16 @@
 package com.bigndesign.light;
 
-import com.activeandroid.ActiveAndroid;
+import android.app.Application;
 
-public class Light extends com.activeandroid.app.Application {
+import io.realm.Realm;
+
+public class Light extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        ActiveAndroid.initialize(this);
+
+        Realm.init(this);
 
 
     }

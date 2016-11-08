@@ -1,49 +1,79 @@
 package com.bigndesign.light.Model;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Cache;
-import com.activeandroid.Model;
-import com.activeandroid.TableInfo;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-@Table(name = "chapter", id = "_id")
-public class Chapter extends Model {
-    @Column(name = "label")
-    public String label;
+public class Chapter extends RealmObject {
+    @PrimaryKey
+    private String id;
+    private String label;
+    private String chapter;
+    private String osisEnd;
+    private Integer chapterOrder;
+    private String display;
+    private Book book;
+    private Verses verses;
 
-    @Column(name= "chapter")
-    public String chapter;
-
-    @Column(name = "id")
-    public String id;
-
-    @Column(name="osisEnd")
-    public String osis_end;
-
-    @Column(name="chapterOrder")
-    public Integer chapter_order;
-
-    @Column(name="display")
-    public String display;
-
-    @Column(name="book")
-    public Book book;
-
-    @Column(name="verses")
-    public Verses verses;
+    public String getLabel() {
+        return label;
+    }
+    public void setLabel(String label) {
+        this.label = label;
+    }
+    public String getChapter() {
+        return chapter;
+    }
+    public void setChapter(String chapter) {
+        this.chapter = chapter;
+    }
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getOsisEnd() {
+        return osisEnd;
+    }
+    public void setOsisEnd(String osisEnd) {
+        this.osisEnd = osisEnd;
+    }
+    public Integer getChapterOrder() {
+        return chapterOrder;
+    }
+    public void setChapterOrder(Integer chapterOrder) {
+        this.chapterOrder = chapterOrder;
+    }
+    public String getDisplay() {
+        return display;
+    }
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+    public Book getBook() {
+        return book;
+    }
+    public void setBook(Book book) {
+        this.book = book;
+    }
+    public Verses getVerses() {
+        return verses;
+    }
+    public void setVerses(Verses verses) {
+        this.verses = verses;
+    }
 
     public Chapter(){
         super();
     }
 
     public static void truncate(){
-        TableInfo tableInfo = Cache.getTableInfo(Chapter.class);
-        ActiveAndroid.execSQL(
-                String.format("DELETE FROM %s;",
-                        tableInfo.getTableName()));
-        ActiveAndroid.execSQL(
-                String.format("DELETE FROM sqlite_sequence WHERE name='%s';",
-                        tableInfo.getTableName()));
+        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.where(Chapter.class).findAll().deleteAllFromRealm();
+            }
+        });
     }
 }

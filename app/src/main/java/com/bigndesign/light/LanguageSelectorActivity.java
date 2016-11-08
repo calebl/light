@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.activeandroid.ActiveAndroid;
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
 import com.bigndesign.light.Model.Verses;
@@ -17,6 +16,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import io.realm.Realm;
 
 public class LanguageSelectorActivity extends AppCompatActivity {
 
@@ -84,33 +85,32 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
             JSONArray books = new JSONArray(booksString);
 
-            ActiveAndroid.beginTransaction();
-
             Verses.truncate();
             Chapter.truncate();
             Book.truncate();
 
-            ActiveAndroid.endTransaction();
+            Realm realm = Realm.getDefaultInstance();
 
-            ActiveAndroid.beginTransaction();
+            realm.beginTransaction();
 
             for (int i = 0; i < books.length(); i++) {
                 JSONObject bookObj = books.getJSONObject(i);
 
                 Book book = new Book();
 
-                book.version_id = bookObj.getString("version_id");
-                book.abbreviation = bookObj.getString("abbr");
-                book.book_group_id = bookObj.getInt("book_group_id");
-                book.book_order = bookObj.getInt("ord");
-                book.id = bookObj.getString("id");
-                book.name = bookObj.getString("name");
-                book.osis_end = bookObj.getString("osis_end");
-                book.testament = bookObj.getString("testament");
+                book.setVersionId(bookObj.getString("version_id"));
+                book.setAbbreviation(bookObj.getString("abbr"));
+                book.setBookGroupId(bookObj.getInt("book_group_id"));
+                book.setBookOrder(bookObj.getInt("ord"));
+                book.setId(bookObj.getString("id"));
+                book.setName(bookObj.getString("name"));
+                book.setOsisEnd(bookObj.getString("osis_end"));
+                book.setTestament(bookObj.getString("testament"));
 
-                book.save();
+                realm.copyToRealm(book);
 
-                String chaptersFileName = book.id.replace(":","_")+".json";
+
+                String chaptersFileName = book.getId().replace(":","_")+".json";
                 String chaptersString;
 
                 //load chapters files for this book
@@ -126,18 +126,20 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
                     Chapter chapter = new Chapter();
 
-                    chapter.book = book;
+                    chapter.setBook(book);
 
-                    chapter.id = chapterObj.getString("id");
-                    chapter.chapter_order = chapterObj.getInt("order");
-                    chapter.chapter = chapterObj.getString("chapter");
-                    chapter.label = chapterObj.getString("label");
-                    chapter.display = chapterObj.getString("display");
-                    chapter.osis_end = chapterObj.getString("osis_end");
+                    chapter.setId(chapterObj.getString("id"));
+                    chapter.setChapterOrder(chapterObj.getInt("order"));
+                    chapter.setChapter(chapterObj.getString("chapter"));
+                    chapter.setLabel(chapterObj.getString("label"));
+                    chapter.setDisplay(chapterObj.getString("display"));
+                    chapter.setOsisEnd(chapterObj.getString("osis_end"));
 
-                    chapter.save();
+                    realm.copyToRealmOrUpdate(chapter);
 
-                    String versesFileName = chapter.id.replace(":","_")+".json";
+                    book.getChapters().add(chapter);
+
+                    String versesFileName = chapter.getId().replace(":","_")+".json";
                     String versesString;
 
                     //load verses files for this book
@@ -152,18 +154,20 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
                         Verses verses = new Verses();
 
-                        verses.book = book;
-                        verses.chapter = chapter;
+                        verses.setBook(book);
+                        verses.setChapter(chapter);
 
-                        verses.label = versesObj.getString("label");
-                        verses.display = versesObj.getString("display");
-                        verses.id = versesObj.getString("id");
-                        verses.nextChapterId = versesObj.getString("nextChapterId");
-                        verses.prevChapterId = versesObj.getString("prevChapterId");
-                        verses.text = versesObj.getString("text");
-                        verses.verse_order = versesObj.getInt("order");
+                        verses.setLabel(versesObj.getString("label"));
+                        verses.setDisplay(versesObj.getString("display"));
+                        verses.setId(versesObj.getString("id"));
+                        verses.setNextChapterId(versesObj.getString("nextChapterId"));
+                        verses.setPrevChapterId(versesObj.getString("prevChapterId"));
+                        verses.setText(versesObj.getString("text"));
+                        verses.setVerseOrder(versesObj.getInt("order"));
 
-                        verses.save();
+                        realm.copyToRealmOrUpdate(verses);
+
+                        chapter.setVerses(verses);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -176,12 +180,13 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
             }
 
-            ActiveAndroid.setTransactionSuccessful();
+
 
         }catch (JSONException | IOException e) {
             e.printStackTrace();
+            Realm.getDefaultInstance().cancelTransaction();
         } finally {
-            ActiveAndroid.endTransaction();
+            Realm.getDefaultInstance().commitTransaction();
         }
 
     }

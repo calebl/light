@@ -8,14 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-import com.activeandroid.query.Select;
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
 import com.bigndesign.light.Model.Verses;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.realm.Realm;
 
 public class ReadActivity extends AppCompatActivity {
 
@@ -34,14 +32,8 @@ public class ReadActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String versesString = loadVerses();
-        try {
-            JSONObject versesObj = new JSONObject(versesString);
-            String text = versesObj.getString("text");
 
-            webView.loadData(text,"text/html; charset=utf-8", "UTF-8");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        webView.loadData(versesString,"text/html; charset=utf-8", "UTF-8");
     }
 
     @Override
@@ -56,19 +48,15 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public String loadVerses() {
-        String json = null;
+        Realm realm = Realm.getDefaultInstance();
 
-        Book book = new Select().from(Book.class).orderBy("bookOrder").executeSingle();
+        Book book = realm.where(Book.class).findAllSorted("bookOrder").first();
 
-        Chapter chapter = new Select().from(Chapter.class).where("book = ?", book.getId()).orderBy("chapterOrder").executeSingle();
+        Chapter chapter = book.getChapters().sort("chapterOrder").first();
 
-        Verses verses = chapter.verses;
+        Verses verses = chapter.getVerses();
 
-        if(verses == null){
-            verses = new Select().from(Verses.class).where("chapter = ?", chapter).executeSingle();
-        }
-
-        return verses.text;
+        return verses.getText();
 
     }
 

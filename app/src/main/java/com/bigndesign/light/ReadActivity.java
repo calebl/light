@@ -32,6 +32,7 @@ public class ReadActivity extends AppCompatActivity {
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
+        //Previous button
         Button previousButton = (Button) findViewById(R.id.previousButton);
 
         previousButton.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +44,7 @@ public class ReadActivity extends AppCompatActivity {
             }
         });
 
+        //Next button
         Button nextButton = (Button) findViewById(R.id.nextButton);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,7 @@ public class ReadActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Load the startup text
         loadDefaultVerses();
 
         webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
@@ -81,6 +84,8 @@ public class ReadActivity extends AppCompatActivity {
         Chapter chapter = book.getChapters().sort("chapterOrder").first();
 
         verses = chapter.getVerses();
+
+        setPreviousButtonVisibility(false);
     }
 
     public void loadPreviousChapterVerses(){
@@ -90,9 +95,18 @@ public class ReadActivity extends AppCompatActivity {
 
         Chapter chapter = realm.where(Chapter.class).equalTo("id", previousChapterId).findFirst();
 
+        Book book = chapter.getBook();
+
         if (chapter != null){
             verses = chapter.getVerses();
         }
+
+        //If at first chapter, disable previous button
+        if(chapter != null && chapter.getChapterOrder().equals(1001)){
+            setPreviousButtonVisibility(false);
+        }
+
+        setNextButtonVisibility(true);
     }
 
     public void loadNextChapterVerses(){
@@ -104,6 +118,31 @@ public class ReadActivity extends AppCompatActivity {
 
         if (chapter != null){
             verses = chapter.getVerses();
+        }
+
+        //If at last chapter, disable next button
+        if(chapter != null && chapter.getChapterOrder().equals(75022)){
+            setNextButtonVisibility(false);
+        }
+
+        setPreviousButtonVisibility(true);
+    }
+
+    public void setPreviousButtonVisibility(boolean isVisible){
+        Button previousButton = (Button) findViewById(R.id.previousButton);
+        if(isVisible){
+            previousButton.setVisibility(View.VISIBLE);
+        } else {
+            previousButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void setNextButtonVisibility(boolean isVisible){
+        Button nextButton = (Button) findViewById(R.id.nextButton);
+        if(isVisible){
+            nextButton.setVisibility(View.VISIBLE);
+        } else {
+            nextButton.setVisibility(View.INVISIBLE);
         }
     }
 }

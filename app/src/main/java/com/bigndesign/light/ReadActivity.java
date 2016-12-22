@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
@@ -22,6 +23,7 @@ public class ReadActivity extends AppCompatActivity {
     private Verses verses;
     private Button nextButton;
     private Button previousButton;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,9 @@ public class ReadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
@@ -85,26 +89,30 @@ public class ReadActivity extends AppCompatActivity {
         verses = chapter.getVerses();
 
         setButtonVisibility(previousButton, false);
+
+        title.setText(getHeaderInfo(book, chapter));
     }
 
     public void loadPreviousChapterVerses(){
         Realm realm = Realm.getDefaultInstance();
 
         String previousChapterId = verses.getPrevChapterId();
-
         Chapter chapter = realm.where(Chapter.class).equalTo("id", previousChapterId).findFirst();
-
         Book book = chapter.getBook();
 
         if (chapter != null){
             verses = chapter.getVerses();
         }
 
+        //Update header
+        title.setText(getHeaderInfo(book, chapter));
+
         //If at first chapter, disable previous button
         if(chapter != null && chapter.getChapterOrder().equals(1001)){
             setButtonVisibility(previousButton, false);
         }
 
+        //If going back from last chapter, make next button visible again
         if(nextButton.getVisibility() == View.INVISIBLE){
             setButtonVisibility(nextButton, true);
         }
@@ -114,18 +122,22 @@ public class ReadActivity extends AppCompatActivity {
         Realm realm = Realm.getDefaultInstance();
 
         String nextChapterId = verses.getNextChapterId();
-
         Chapter chapter = realm.where(Chapter.class).equalTo("id", nextChapterId).findFirst();
+        Book book = chapter.getBook();
 
         if (chapter != null){
             verses = chapter.getVerses();
         }
+
+        //Update header
+        title.setText(getHeaderInfo(book, chapter));
 
         //If at last chapter, disable next button
         if(chapter != null && chapter.getChapterOrder().equals(75022)){
             setButtonVisibility(nextButton, false);
         }
 
+        //If moving forward from first chapter, make previous button visible again
         if(previousButton.getVisibility() == View.INVISIBLE){
             setButtonVisibility(previousButton, true);
         }
@@ -142,5 +154,20 @@ public class ReadActivity extends AppCompatActivity {
         } else {
             button.setVisibility(View.INVISIBLE);
         }
+    }
+
+    /**
+     * Gets book/chapter info
+     * @param book
+     * @param chapter
+     * @return The header string
+     */
+    public String getHeaderInfo(Book book, Chapter chapter){
+        //Display Book/Chapter in header
+        String bookName = book.getName();
+        String chapterNumber = chapter.getChapter();
+        String header = bookName + " " + chapterNumber;
+
+        return header;
     }
 }

@@ -20,6 +20,8 @@ import io.realm.Realm;
 public class ReadActivity extends AppCompatActivity {
 
     private Verses verses;
+    private Button nextButton;
+    private Button previousButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,8 @@ public class ReadActivity extends AppCompatActivity {
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
-        //Previous button
-        Button previousButton = (Button) findViewById(R.id.previousButton);
+        nextButton     = (Button) findViewById(R.id.nextButton);
+        previousButton = (Button) findViewById(R.id.previousButton);
 
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,9 +45,6 @@ public class ReadActivity extends AppCompatActivity {
                 webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
             }
         });
-
-        //Next button
-        Button nextButton = (Button) findViewById(R.id.nextButton);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +84,7 @@ public class ReadActivity extends AppCompatActivity {
 
         verses = chapter.getVerses();
 
-        setPreviousButtonVisibility(false);
+        setButtonVisibility(previousButton, false);
     }
 
     public void loadPreviousChapterVerses(){
@@ -103,10 +102,12 @@ public class ReadActivity extends AppCompatActivity {
 
         //If at first chapter, disable previous button
         if(chapter != null && chapter.getChapterOrder().equals(1001)){
-            setPreviousButtonVisibility(false);
+            setButtonVisibility(previousButton, false);
         }
 
-        setNextButtonVisibility(true);
+        if(nextButton.getVisibility() == View.INVISIBLE){
+            setButtonVisibility(nextButton, true);
+        }
     }
 
     public void loadNextChapterVerses(){
@@ -122,27 +123,24 @@ public class ReadActivity extends AppCompatActivity {
 
         //If at last chapter, disable next button
         if(chapter != null && chapter.getChapterOrder().equals(75022)){
-            setNextButtonVisibility(false);
+            setButtonVisibility(nextButton, false);
         }
 
-        setPreviousButtonVisibility(true);
-    }
-
-    public void setPreviousButtonVisibility(boolean isVisible){
-        Button previousButton = (Button) findViewById(R.id.previousButton);
-        if(isVisible){
-            previousButton.setVisibility(View.VISIBLE);
-        } else {
-            previousButton.setVisibility(View.INVISIBLE);
+        if(previousButton.getVisibility() == View.INVISIBLE){
+            setButtonVisibility(previousButton, true);
         }
     }
 
-    public void setNextButtonVisibility(boolean isVisible){
-        Button nextButton = (Button) findViewById(R.id.nextButton);
+    /**
+     * Sets next/previous button visibility
+     * @param button The button to be changed
+     * @param isVisible
+     */
+    public void setButtonVisibility(Button button, boolean isVisible){
         if(isVisible){
-            nextButton.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
         } else {
-            nextButton.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.INVISIBLE);
         }
     }
 }

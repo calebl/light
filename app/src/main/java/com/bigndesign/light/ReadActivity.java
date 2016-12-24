@@ -90,7 +90,7 @@ public class ReadActivity extends AppCompatActivity {
 
         setButtonVisibility(previousButton, false);
 
-        title.setText(getHeaderInfo(book, chapter));
+        title.setText(verses.getDisplay());
     }
 
     public void loadPreviousChapterVerses(){
@@ -105,7 +105,7 @@ public class ReadActivity extends AppCompatActivity {
         }
 
         //Update header
-        title.setText(getHeaderInfo(book, chapter));
+        title.setText(verses.getDisplay());
 
         //If at first chapter, disable previous button
         if(chapter != null && chapter.getChapterOrder().equals(1001)){
@@ -130,7 +130,7 @@ public class ReadActivity extends AppCompatActivity {
         }
 
         //Update header
-        title.setText(getHeaderInfo(book, chapter));
+        title.setText(verses.getDisplay());
 
         //If at last chapter, disable next button
         if(chapter != null && chapter.getChapterOrder().equals(75022)){
@@ -154,20 +154,5 @@ public class ReadActivity extends AppCompatActivity {
         } else {
             button.setVisibility(View.INVISIBLE);
         }
-    }
-
-    /**
-     * Gets book/chapter info
-     * @param book
-     * @param chapter
-     * @return The header string
-     */
-    public String getHeaderInfo(Book book, Chapter chapter){
-        //Display Book/Chapter in header
-        String bookName = book.getName();
-        String chapterNumber = chapter.getChapter();
-        String header = bookName + " " + chapterNumber;
-
-        return header;
     }
 }

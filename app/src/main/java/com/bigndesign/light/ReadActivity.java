@@ -18,6 +18,8 @@ import com.bigndesign.light.Model.Chapter;
 import com.bigndesign.light.Model.Verses;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
+import java.util.List;
+
 import io.realm.Realm;
 
 public class ReadActivity extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class ReadActivity extends AppCompatActivity {
     private Button previousButton;
     private Button menuButton;
     private TextView title;
+    private List<Book> bookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class ReadActivity extends AppCompatActivity {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        if(getSupportActionBar()!=null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
@@ -64,9 +70,6 @@ public class ReadActivity extends AppCompatActivity {
             }
         });
 
-        if(getSupportActionBar()!=null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         //Load menu
         menuButton = (Button) findViewById(R.id.menuButton);
 
@@ -75,7 +78,11 @@ public class ReadActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Popup menu
                 PopupMenu popupMenu = new PopupMenu(ReadActivity.this, menuButton);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_chapter_select, popupMenu.getMenu());
+
+                //Add options to menu
+                for(int i = 0; i < bookList.size(); i++){
+                    popupMenu.getMenu().add(1, i, i, bookList.get(i).getName());
+                }
 
                 //registering popup with OnMenuItemClickListener
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -113,6 +120,7 @@ public class ReadActivity extends AppCompatActivity {
         Realm realm = Realm.getDefaultInstance();
 
         Book book = realm.where(Book.class).findAllSorted("bookOrder").first();
+        bookList = realm.where(Book.class).findAllSorted("bookOrder");
 
         Chapter chapter = book.getChapters().sort("chapterOrder").first();
 

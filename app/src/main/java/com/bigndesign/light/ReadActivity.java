@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
@@ -23,6 +25,7 @@ public class ReadActivity extends AppCompatActivity {
     private Verses verses;
     private Button nextButton;
     private Button previousButton;
+    private Button menuButton;
     private TextView title;
 
     @Override
@@ -34,7 +37,9 @@ public class ReadActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
@@ -61,6 +66,31 @@ public class ReadActivity extends AppCompatActivity {
 
         if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Load menu
+        menuButton = (Button) findViewById(R.id.menuButton);
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Popup menu
+                PopupMenu popupMenu = new PopupMenu(ReadActivity.this, menuButton);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_chapter_select, popupMenu.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(
+                                ReadActivity.this,
+                                "You Clicked : " + item.getTitle(),
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
         //Load the startup text
         loadDefaultVerses();

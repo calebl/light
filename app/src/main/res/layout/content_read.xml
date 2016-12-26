@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/th_list"
-            android:id="@+id/button"
+            android:id="@+id/menuButton"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
             android:textSize="20sp"

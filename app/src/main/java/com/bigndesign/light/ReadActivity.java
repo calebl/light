@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -81,7 +82,17 @@ public class ReadActivity extends AppCompatActivity {
 
                 //Add options to menu
                 for(int i = 0; i < bookList.size(); i++){
-                    popupMenu.getMenu().add(1, i, i, bookList.get(i).getName());
+                    //popupMenu.getMenu().add(i, i, i, bookList.get(i).getName());
+                    SubMenu subMenu = popupMenu.getMenu().addSubMenu(i, i, i, bookList.get(i).getName());
+
+                    //Add chapters
+                    for(int j = 1; j <= bookList.get(i).getChapters().size(); j++){
+                        String number = "" + j;
+                        //popupMenu.getMenu().addSubMenu(j, j, j, number);
+
+                        //subMenu.setGroupVisible(j, false);
+                        subMenu.add(number);
+                    }
                 }
 
                 //registering popup with OnMenuItemClickListener

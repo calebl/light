@@ -30,6 +30,7 @@ public class ReadActivity extends AppCompatActivity {
     private Button menuButton;
     private TextView title;
     private List<Book> bookList;
+    private PopupMenu popupMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +43,39 @@ public class ReadActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-
-        if(getSupportActionBar()!=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
+        //Populate bookList
+        loadBookList();
+
+        //Create menu
+        createPopupMenu();
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Register popupMenu with OnMenuItemClickListener
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        //Get chapter id and load new verses
+                        String bookName = bookList.get(item.getGroupId()).getName();
+                        String chapterId = (String)item.getTitle();
+                        loadVerses(bookName, chapterId);
+
+                        //Load new verses
+                        webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
+
+        //Make previous/next buttons functional
         nextButton     = (Button) findViewById(R.id.nextButton);
         previousButton = (Button) findViewById(R.id.previousButton);
 
@@ -70,43 +97,6 @@ public class ReadActivity extends AppCompatActivity {
             }
         });
 
-        //Load menu
-        menuButton = (Button) findViewById(R.id.menuButton);
-
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Popup menu
-                final PopupMenu popupMenu = new PopupMenu(ReadActivity.this, menuButton);
-
-                //Add options to menu
-                for(int i = 0; i < bookList.size(); i++){
-                    SubMenu subMenu = popupMenu.getMenu().addSubMenu(i, i, i, bookList.get(i).getName());
-
-                    //Add chapters
-                    for(int j = 1; j <= bookList.get(i).getChapters().size(); j++){
-                        String number = "" + j;
-                        subMenu.add(i, j, j, number);
-                    }
-                }
-
-                //Register popupMenu with OnMenuItemClickListener
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        //Get chapter id and load new verses
-                        String bookName = bookList.get(item.getGroupId()).getName();
-                        String chapterId = (String)item.getTitle();
-                        loadVerses(bookName, chapterId);
-
-                        //Load new verses
-                        webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
-                        return true;
-                    }
-                });
-                popupMenu.show();
-            }
-        });
-
         //Load the startup text
         loadDefaultVerses();
 
@@ -124,11 +114,37 @@ public class ReadActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void createPopupMenu() {
+        //Load menu
+        menuButton = (Button) findViewById(R.id.menuButton);
+        popupMenu = new PopupMenu(ReadActivity.this, menuButton);
+
+        try{
+            addOptionsToMenu();
+        } catch (NullPointerException e){
+            //If the bookList is null, load it; then try again
+            loadBookList();
+            addOptionsToMenu();
+        }
+    }
+
+    public void addOptionsToMenu(){
+        //Add options to menu
+        for (int i = 0; i < bookList.size(); i++) {
+            SubMenu subMenu = popupMenu.getMenu().addSubMenu(i, i, i, bookList.get(i).getName());
+
+            //Add chapters
+            for (int j = 1; j <= bookList.get(i).getChapters().size(); j++) {
+                String number = "" + j;
+                subMenu.add(i, j, j, number);
+            }
+        }
+    }
+
     public void loadDefaultVerses() {
         Realm realm = Realm.getDefaultInstance();
 
         Book book = realm.where(Book.class).findAllSorted("bookOrder").first();
-        bookList = realm.where(Book.class).findAllSorted("bookOrder");
 
         Chapter chapter = book.getChapters().sort("chapterOrder").first();
 
@@ -154,7 +170,7 @@ public class ReadActivity extends AppCompatActivity {
         title.setText(verses.getDisplay());
 
         //If at first chapter, disable previous button
-        if(chapter != null && chapter.getChapterOrder().equals(1001)){
+        if(verses.getPrevChapterId().equals("null")){
             setButtonVisibility(previousButton, false);
         }
 
@@ -179,7 +195,7 @@ public class ReadActivity extends AppCompatActivity {
         title.setText(verses.getDisplay());
 
         //If at last chapter, disable next button
-        if(chapter != null && chapter.getChapterOrder().equals(75022)){
+        if(verses.getNextChapterId().equals("null")){
             setButtonVisibility(nextButton, false);
         }
 
@@ -228,5 +244,10 @@ public class ReadActivity extends AppCompatActivity {
         } else {
             button.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void loadBookList(){
+        Realm realm = Realm.getDefaultInstance();
+        bookList = realm.where(Book.class).findAllSorted("bookOrder");
     }
 }

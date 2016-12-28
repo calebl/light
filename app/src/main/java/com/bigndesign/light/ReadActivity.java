@@ -12,7 +12,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
@@ -78,31 +77,29 @@ public class ReadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Popup menu
-                PopupMenu popupMenu = new PopupMenu(ReadActivity.this, menuButton);
+                final PopupMenu popupMenu = new PopupMenu(ReadActivity.this, menuButton);
 
                 //Add options to menu
                 for(int i = 0; i < bookList.size(); i++){
-                    //popupMenu.getMenu().add(i, i, i, bookList.get(i).getName());
                     SubMenu subMenu = popupMenu.getMenu().addSubMenu(i, i, i, bookList.get(i).getName());
 
                     //Add chapters
                     for(int j = 1; j <= bookList.get(i).getChapters().size(); j++){
                         String number = "" + j;
-                        //popupMenu.getMenu().addSubMenu(j, j, j, number);
-
-                        //subMenu.setGroupVisible(j, false);
-                        subMenu.add(number);
+                        subMenu.add(i, j, j, number);
                     }
                 }
 
-                //registering popup with OnMenuItemClickListener
+                //Register popupMenu with OnMenuItemClickListener
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(
-                                ReadActivity.this,
-                                "You Clicked : " + item.getTitle(),
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        //Get chapter id and load new verses
+                        String bookName = bookList.get(item.getGroupId()).getName();
+                        String chapterId = (String)item.getTitle();
+                        loadVerses(bookName, chapterId);
+
+                        //Load new verses
+                        webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
                         return true;
                     }
                 });
@@ -189,6 +186,34 @@ public class ReadActivity extends AppCompatActivity {
         //If moving forward from first chapter, make previous button visible again
         if(previousButton.getVisibility() == View.INVISIBLE){
             setButtonVisibility(previousButton, true);
+        }
+    }
+
+    public void loadVerses(String book, String chapterNumber){
+        Realm realm = Realm.getDefaultInstance();
+
+        String display =book + " " + chapterNumber;
+        Chapter chapter = realm.where(Chapter.class).equalTo("display", display).findFirst();
+
+        if (chapter != null){
+            verses = chapter.getVerses();
+        }
+
+        //Update header
+        title.setText(verses.getDisplay());
+
+        //If at first chapter, disable previous button
+        if(chapter != null && chapter.getChapterOrder().equals(1001)){
+            setButtonVisibility(previousButton, false);
+        } else if (previousButton.getVisibility() == View.INVISIBLE){
+            setButtonVisibility(previousButton, true);
+        }
+
+        //If at last chapter, disable next button
+        if(chapter != null && chapter.getChapterOrder().equals(75022)){
+            setButtonVisibility(nextButton, false);
+        } else if (nextButton.getVisibility() == View.INVISIBLE){
+            setButtonVisibility(nextButton, true);
         }
     }
 

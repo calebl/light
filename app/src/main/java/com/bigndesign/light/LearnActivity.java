@@ -15,16 +15,23 @@ import android.widget.ExpandableListView;
 
 import com.bigndesign.light.adapters.ExpandableListAdapter.ExpandableListAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LearnActivity extends AppCompatActivity {
-    List<String> groupList;
-    List<String> childList;
-    Map<String, List<String>> faqCollection;
-    ExpandableListView expListView;
+    private List<String> groupList;
+    private List<String> childList;
+    private Map<String, List<String>> faqCollection;
+    private ExpandableListView expListView;
+    private JSONArray data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +50,9 @@ public class LearnActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        createGroupList();
-
-        createCollection();
+        //Load faq data
+        loadText();
+        createContent();
 
         expListView = (ExpandableListView) findViewById(R.id.faq_list);
         final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
@@ -53,66 +60,46 @@ public class LearnActivity extends AppCompatActivity {
         expListView.setAdapter(expListAdapter);
     }
 
-    private void createGroupList() {
-        groupList = new ArrayList<String>();
-        groupList.add("Suspendisse purus leo?");
-        groupList.add("Aliquam vehicula sed erat in blandit?");
-        groupList.add("Curabitur sed justo vel diam egestas rhoncus eu gravida nunc?");
-        groupList.add("Vestibulum lorem odio, faucibus sit amet lectus et?");
-        groupList.add("Sed dignissim consectetur elit, bibendum egestas ipsum molestie at. Suspendisse quis ultricies magna?");
-        groupList.add("Vivamus efficitur ultricies tincidunt?");
-        groupList.add("Suspendisse purus leo?");
-        groupList.add("Aliquam vehicula sed erat in blandit?");
-        groupList.add("Curabitur sed justo vel diam egestas rhoncus eu gravida nunc?");
-        groupList.add("Vestibulum lorem odio, faucibus sit amet lectus et?");
-        groupList.add("Sed dignissim consectetur elit, bibendum egestas ipsum molestie at. Suspendisse quis ultricies magna?");
-        groupList.add("Vivamus efficitur ultricies tincidunt?");
-        groupList.add("Vestibulum lorem odio, faucibus sit amet lectus et?");
-        groupList.add("Sed dignissim consectetur elit, bibendum egestas ipsum molestie at. Suspendisse quis ultricies magna?");
-        groupList.add("Vivamus efficitur ultricies tincidunt?");
+    public void loadText(){
+        try{
+            InputStream is = getAssets().open("learn_content/faqs.json");
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            String faqsString = new String(buffer, "UTF-8");
+
+            data = new JSONArray(faqsString);
+        } catch (JSONException | IOException e){
+            e.printStackTrace();
+        }
+
     }
 
-    private void createCollection() {
-        // preparing faq collection(child)
-        String[] hpModels = { "HP Pavilion G6-2014TX", "ProBook HP 4540",
-                "HP Envy 4-1025TX" };
-        String[] hclModels = { "HCL S2101", "HCL L2102", "HCL V2002" };
-        String[] lenovoModels = { "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "      +
-                "Suspendisse purus leo, aliquet sed purus eu, lacinia semper mi. Aliquam "         +
-                "vehicula sed erat in blandit. Maecenas auctor, est nec tristique pellentesque, "  +
-                "tellus urna venenatis risus, convallis lacinia nibh nibh eget felis. Sed "        +
-                "tristique rhoncus sagittis. Aenean congue mattis pretium. Maecenas mollis felis " +
-                "et felis vestibulum elementum. Suspendisse sit amet suscipit magna. Quisque "     +
-                "aliquam interdum dictum." };
-        String[] sonyModels = { "VAIO E Series", "VAIO Z Series",
-                "VAIO S Series", "VAIO YB Series" };
-        String[] dellModels = { "Inspiron", "Vostro", "XPS" };
-        String[] samsungModels = { "NP Series", "Series 5", "SF Series" };
-
+    private void createContent() {
+        groupList = new ArrayList<String>();
         faqCollection = new LinkedHashMap<String, List<String>>();
 
-        for (String faq : groupList) {
-            if (faq.equals("HP")) {
-                loadChild(hpModels);
-            } else if (faq.equals("Dell"))
-                loadChild(dellModels);
-            else if (faq.equals("Sony"))
-                loadChild(sonyModels);
-            else if (faq.equals("HCL"))
-                loadChild(hclModels);
-            else if (faq.equals("Samsung"))
-                loadChild(samsungModels);
-            else
-                loadChild(lenovoModels);
-
-            faqCollection.put(faq, childList);
+        try{
+            for (int i = 0; i < data.length(); i++){
+                JSONObject dataObj = data.getJSONObject(i);
+                groupList.add(dataObj.getString("faq_id") + dataObj.getString("title"));
+                loadChild(dataObj.getString("faq_id") + dataObj.getString("content"));
+                faqCollection.put(dataObj.getString("faq_id") + dataObj.getString("title"), childList);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
         }
     }
 
-    private void loadChild(String[] faqs) {
+    private void loadChild(String content) {
         childList = new ArrayList<String>();
-        for (String faq : faqs)
-            childList.add(faq);
+        childList.add(content);
     }
 
     private void setGroupIndicatorToRight() {

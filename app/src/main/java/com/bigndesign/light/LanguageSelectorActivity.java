@@ -67,127 +67,138 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
     }
 
-    public void loadTexts(String language) {
-        String booksString = null;
-        try {
-
-            InputStream is = getAssets().open(language + "/books.json");
-
-            int size = is.available();
-
-            byte[] buffer = new byte[size];
-
-            is.read(buffer);
-
-            is.close();
-
-            booksString = new String(buffer, "UTF-8");
-
-            JSONArray books = new JSONArray(booksString);
-
-            Verses.truncate();
-            Chapter.truncate();
-            Book.truncate();
-
-            Realm realm = Realm.getDefaultInstance();
-
-            realm.beginTransaction();
-
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject bookObj = books.getJSONObject(i);
-
-                Book book = new Book();
-
-                book.setVersionId(bookObj.getString("version_id"));
-                book.setAbbreviation(bookObj.getString("abbr"));
-                book.setBookGroupId(bookObj.getInt("book_group_id"));
-                book.setBookOrder(bookObj.getInt("ord"));
-                book.setId(bookObj.getString("id"));
-                book.setName(bookObj.getString("name"));
-                book.setOsisEnd(bookObj.getString("osis_end"));
-                book.setTestament(bookObj.getString("testament"));
-
-                realm.copyToRealm(book);
+    public void loadTexts(final String language) {
 
 
-                String chaptersFileName = book.getId().replace(":","_")+".json";
-                String chaptersString;
+        Realm realm = Realm.getDefaultInstance();
 
-                //load chapters files for this book
-                is = getAssets().open(language + "/chapters/" + chaptersFileName);
-                size = is.available(); buffer = new byte[size]; is.read(buffer); is.close();
+        realm.beginTransaction();
 
-                chaptersString = new String(buffer, "UTF-8");
+        //TODO: show loading texts screen
 
-                JSONArray chapters = new JSONArray(chaptersString);
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    String booksString = null;
 
-                for(int j=0; j < chapters.length(); j++){
-                    JSONObject chapterObj = chapters.getJSONObject(j);
+                    InputStream is = getAssets().open(language + "/books.json");
 
-                    Chapter chapter = new Chapter();
+                    int size = is.available();
 
-                    chapter.setBook(book);
+                    byte[] buffer = new byte[size];
 
-                    chapter.setId(chapterObj.getString("id"));
-                    chapter.setChapterOrder(chapterObj.getInt("order"));
-                    chapter.setChapter(chapterObj.getString("chapter"));
-                    chapter.setLabel(chapterObj.getString("label"));
-                    chapter.setDisplay(chapterObj.getString("display"));
-                    chapter.setOsisEnd(chapterObj.getString("osis_end"));
+                    is.read(buffer);
 
-                    realm.copyToRealmOrUpdate(chapter);
+                    is.close();
 
-                    book.getChapters().add(chapter);
+                    booksString = new String(buffer, "UTF-8");
 
-                    String versesFileName = chapter.getId().replace(":","_")+".json";
-                    String versesString;
+                    final JSONArray books = new JSONArray(booksString);
 
-                    //load verses files for this book
-                    is = getAssets().open(language + "/verses/" + versesFileName);
-                    size = is.available(); buffer = new byte[size]; is.read(buffer); is.close();
+                    Verses.truncate();
+                    Chapter.truncate();
+                    Book.truncate();
 
-                    versesString = new String(buffer, "UTF-8");
+                    for (int i = 0; i < books.length(); i++) {
+                        JSONObject bookObj = books.getJSONObject(i);
 
-                    try {
+                        Book book = new Book();
 
-                        JSONObject versesObj = new JSONObject(versesString);
+                        book.setVersionId(bookObj.getString("version_id"));
+                        book.setAbbreviation(bookObj.getString("abbr"));
+                        book.setBookGroupId(bookObj.getInt("book_group_id"));
+                        book.setBookOrder(bookObj.getInt("ord"));
+                        book.setId(bookObj.getString("id"));
+                        book.setName(bookObj.getString("name"));
+                        book.setOsisEnd(bookObj.getString("osis_end"));
+                        book.setTestament(bookObj.getString("testament"));
 
-                        Verses verses = new Verses();
+                        realm.copyToRealm(book);
 
-                        verses.setBook(book);
-                        verses.setChapter(chapter);
 
-                        verses.setLabel(versesObj.getString("label"));
-                        verses.setDisplay(versesObj.getString("display"));
-                        verses.setId(versesObj.getString("id"));
-                        verses.setNextChapterId(versesObj.getString("nextChapterId"));
-                        verses.setPrevChapterId(versesObj.getString("prevChapterId"));
-                        verses.setText(versesObj.getString("text"));
-                        verses.setVerseOrder(versesObj.getInt("order"));
+                        String chaptersFileName = book.getId().replace(":", "_") + ".json";
+                        String chaptersString;
 
-                        realm.copyToRealmOrUpdate(verses);
+                        //load chapters files for this book
+                        is = getAssets().open(language + "/chapters/" + chaptersFileName);
+                        size = is.available();
+                        buffer = new byte[size];
+                        is.read(buffer);
+                        is.close();
 
-                        chapter.setVerses(verses);
+                        chaptersString = new String(buffer, "UTF-8");
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        JSONArray chapters = new JSONArray(chaptersString);
+
+                        for (int j = 0; j < chapters.length(); j++) {
+                            JSONObject chapterObj = chapters.getJSONObject(j);
+
+                            Chapter chapter = new Chapter();
+
+                            chapter.setBook(book);
+
+                            chapter.setId(chapterObj.getString("id"));
+                            chapter.setChapterOrder(chapterObj.getInt("order"));
+                            chapter.setChapter(chapterObj.getString("chapter"));
+                            chapter.setLabel(chapterObj.getString("label"));
+                            chapter.setDisplay(chapterObj.getString("display"));
+                            chapter.setOsisEnd(chapterObj.getString("osis_end"));
+
+                            realm.copyToRealmOrUpdate(chapter);
+
+                            book.getChapters().add(chapter);
+
+                            String versesFileName = chapter.getId().replace(":", "_") + ".json";
+                            String versesString;
+
+                            //load verses files for this book
+                            is = getAssets().open(language + "/verses/" + versesFileName);
+                            size = is.available();
+                            buffer = new byte[size];
+                            is.read(buffer);
+                            is.close();
+
+                            versesString = new String(buffer, "UTF-8");
+
+                            try {
+
+                                JSONObject versesObj = new JSONObject(versesString);
+
+                                Verses verses = new Verses();
+
+                                verses.setBook(book);
+                                verses.setChapter(chapter);
+
+                                verses.setLabel(versesObj.getString("label"));
+                                verses.setDisplay(versesObj.getString("display"));
+                                verses.setId(versesObj.getString("id"));
+                                verses.setNextChapterId(versesObj.getString("nextChapterId"));
+                                verses.setPrevChapterId(versesObj.getString("prevChapterId"));
+                                verses.setText(versesObj.getString("text"));
+                                verses.setVerseOrder(versesObj.getInt("order"));
+
+                                realm.copyToRealmOrUpdate(verses);
+
+                                chapter.setVerses(verses);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
                     }
-                    
+                }catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                    Realm.getDefaultInstance().cancelTransaction();
+                } finally {
+                    Realm.getDefaultInstance().commitTransaction();
+
+                    //TODO: hide loading texts screen
                 }
-
-
-
-
             }
-
-
-
-        }catch (JSONException | IOException e) {
-            e.printStackTrace();
-            Realm.getDefaultInstance().cancelTransaction();
-        } finally {
-            Realm.getDefaultInstance().commitTransaction();
-        }
+        });
 
     }
 }

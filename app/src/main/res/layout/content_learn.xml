@@ -12,4 +12,10 @@
     tools:context="com.bigndesign.light.LearnActivity"
     tools:showIn="@layout/activity_learn">
 
+    <ExpandableListView
+        android:id="@+id/faq_list"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+    </ExpandableListView>
+
 </RelativeLayout>

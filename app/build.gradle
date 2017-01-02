@@ -17,12 +17,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
     }
 }
 
 repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
 }
 
 dependencies {
@@ -32,4 +36,6 @@ dependencies {
     compile 'com.android.support:design:25.0.0'
     compile 'com.mikepenz:iconics-core:2.5.1@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
+    compile 'com.facebook.stetho:stetho:1.4.2'
+    compile 'com.uphyca:stetho_realm:2.0.0'
 }

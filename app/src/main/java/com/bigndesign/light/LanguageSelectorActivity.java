@@ -1,6 +1,7 @@
 package com.bigndesign.light;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +22,7 @@ import io.realm.Realm;
 
 public class LanguageSelectorActivity extends AppCompatActivity {
 
+    private String LANGUAGE_PREF = "language_pref";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,42 +31,66 @@ public class LanguageSelectorActivity extends AppCompatActivity {
         final Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
         final Bundle bundle = new Bundle();
 
-        Button selectArabic = (Button)findViewById(R.id.selectArabic);
-        selectArabic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadTexts("arabic");
-                bundle.putString("language", "arabic");
+        // Restore language preferences
+        SharedPreferences settings = getSharedPreferences(LANGUAGE_PREF, 0);
+        final String language = settings.getString("language_selection", "none");
 
-                startActivity(homeIntent, bundle);
-                finish();
-            }
-        });
+        //If no language saved, display options and save preference; else, load saved preference
+        if(language.equals("none")){
+            Button selectArabic = (Button)findViewById(R.id.selectArabic);
+            selectArabic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadTexts("arabic");
+                    bundle.putString("language", "arabic");
+                    saveLanguage("arabic");
 
-        Button selectSpanish = (Button)findViewById(R.id.selectSpanish);
-        selectSpanish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadTexts("spanish");
-                bundle.putString("language", "spanish");
+                    startActivity(homeIntent, bundle);
+                    finish();
+                }
+            });
 
-                startActivity(homeIntent, bundle);
-                finish();
-            }
-        });
+            Button selectSpanish = (Button)findViewById(R.id.selectSpanish);
+            selectSpanish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadTexts("spanish");
+                    bundle.putString("language", "spanish");
+                    saveLanguage("spanish");
 
-        Button selectFrench = (Button)findViewById(R.id.selectFrench);
-        selectFrench.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadTexts("french");
-                bundle.putString("language", "french");
+                    startActivity(homeIntent, bundle);
+                    finish();
+                }
+            });
 
-                startActivity(homeIntent, bundle);
-                finish();
-            }
-        });
+            Button selectFrench = (Button)findViewById(R.id.selectFrench);
+            selectFrench.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadTexts("french");
+                    bundle.putString("language", "french");
+                    saveLanguage("french");
 
+                    startActivity(homeIntent, bundle);
+                    finish();
+                }
+            });
+        } else {
+            bundle.putString("language", language);
+            startActivity(homeIntent, bundle);
+            finish();
+        }
+
+    }
+
+    public void saveLanguage(String language){
+        // All objects are from android.context.Context
+        SharedPreferences settings = getSharedPreferences(LANGUAGE_PREF, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("language_selection", language);
+
+        // Commit the edits
+        editor.commit();
     }
 
     public void loadTexts(final String language) {
@@ -169,7 +195,6 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
                                 verses.setBook(book);
                                 verses.setChapter(chapter);
-
                                 verses.setLabel(versesObj.getString("label"));
                                 verses.setDisplay(versesObj.getString("display"));
                                 verses.setId(versesObj.getString("id"));

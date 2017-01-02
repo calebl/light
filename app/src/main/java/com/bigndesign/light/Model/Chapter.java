@@ -58,6 +58,10 @@ public class Chapter extends RealmObject {
         this.book = book;
     }
     public Verses getVerses() {
+        if(verses == null){
+            return Realm.getDefaultInstance().where(Verses.class).equalTo("chapter.id", this.getId()).findFirst();
+        }
+
         return verses;
     }
     public void setVerses(Verses verses) {

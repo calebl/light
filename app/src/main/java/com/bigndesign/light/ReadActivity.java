@@ -208,8 +208,7 @@ public class ReadActivity extends AppCompatActivity {
     public void loadVerses(String book, String chapterNumber){
         Realm realm = Realm.getDefaultInstance();
 
-        String display =book + " " + chapterNumber;
-        Chapter chapter = realm.where(Chapter.class).equalTo("display", display).findFirst();
+        Chapter chapter = realm.where(Chapter.class).equalTo("book.name", book).equalTo("chapter",chapterNumber).findFirst();
 
         if (chapter != null){
             verses = chapter.getVerses();

@@ -45,7 +45,12 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onAuthentication(Credentials credentials) {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), AskActivity.class));
+            Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
+            Bundle bundle = new Bundle();
+
+            bundle.putString("userId", credentials.getIdToken());
+
+            startActivity(askIntent, bundle);
             finish();
         }
 

@@ -12,4 +12,7 @@
     <string name="angle_left">{faw-angle-left}</string>
     <string name="th_list">{faw-th-list}</string>
     <string name="angle_right">{faw-angle-right}</string>
+
+    <string name="auth0_client_id">qrQYkbhyQTnJJHMfDGF0Yhz04DcKbFKW</string>
+    <string name="auth0_domain">light-app.eu.auth0.com</string>
 </resources>

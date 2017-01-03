@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
@@ -41,12 +43,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
             selectArabic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadTexts("arabic");
                     bundle.putString("language", "arabic");
                     saveLanguage("arabic");
 
-                    startActivity(homeIntent, bundle);
-                    finish();
+                    loadTexts("arabic", homeIntent, bundle);
                 }
             });
 
@@ -54,12 +54,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
             selectSpanish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadTexts("spanish");
                     bundle.putString("language", "spanish");
                     saveLanguage("spanish");
 
-                    startActivity(homeIntent, bundle);
-                    finish();
+                    loadTexts("spanish", homeIntent, bundle);
                 }
             });
 
@@ -67,12 +65,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
             selectFrench.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadTexts("french");
                     bundle.putString("language", "french");
                     saveLanguage("french");
 
-                    startActivity(homeIntent, bundle);
-                    finish();
+                    loadTexts("french", homeIntent, bundle);
                 }
             });
         } else {
@@ -93,14 +89,22 @@ public class LanguageSelectorActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public void loadTexts(final String language) {
+    public void loadTexts(final String language, final Intent homeIntent, final Bundle bundle) {
 
 
         Realm realm = Realm.getDefaultInstance();
 
-        realm.beginTransaction();
+        final RelativeLayout progressLayout = (RelativeLayout) findViewById(R.id.progressLayout);
+        progressLayout.setVisibility(View.VISIBLE);
+
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        progressBar.set
 
         //TODO: show loading texts screen
+
+        Verses.truncate();
+        Chapter.truncate();
+        Book.truncate();
 
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -121,10 +125,6 @@ public class LanguageSelectorActivity extends AppCompatActivity {
                     booksString = new String(buffer, "UTF-8");
 
                     final JSONArray books = new JSONArray(booksString);
-
-                    Verses.truncate();
-                    Chapter.truncate();
-                    Book.truncate();
 
                     for (int i = 0; i < books.length(); i++) {
                         JSONObject bookObj = books.getJSONObject(i);
@@ -214,15 +214,27 @@ public class LanguageSelectorActivity extends AppCompatActivity {
                         }
 
                     }
-                }catch (JSONException | IOException e) {
+                } catch (JSONException | IOException e) {
                     e.printStackTrace();
-                    Realm.getDefaultInstance().cancelTransaction();
-                } finally {
-                    Realm.getDefaultInstance().commitTransaction();
-
-                    //TODO: hide loading texts screen
                 }
             }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                startActivity(homeIntent, bundle);
+                finish();
+
+                progressLayout.setVisibility(View.GONE);
+                //Hide loading layout
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Hide loading layout
+
+                progressLayout.setVisibility(View.GONE);
+            }
+
         });
 
     }

@@ -1,9 +1,12 @@
 package com.bigndesign.light.Model;
 
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 public class Book extends RealmObject {
@@ -93,5 +96,17 @@ public class Book extends RealmObject {
                 realm.where(Book.class).findAll().deleteAllFromRealm();
             }
         });
+    }
+
+    public static RealmResults<Book> all(){
+        return Realm.getDefaultInstance().where(Book.class).findAllSorted("bookOrder");
+    }
+
+    public static ArrayList<String> bookTitles(){
+        ArrayList<String> titles = new ArrayList<>();
+
+
+        return titles;
+
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.bigndesign.light.Model.Book;
 import com.bigndesign.light.Model.Chapter;
@@ -41,12 +43,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
             selectArabic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadTexts("arabic");
                     bundle.putString("language", "arabic");
                     saveLanguage("arabic");
 
-                    startActivity(homeIntent, bundle);
-                    finish();
+                    loadTexts("arabic", homeIntent, bundle);
                 }
             });
 
@@ -54,12 +54,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
             selectSpanish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadTexts("spanish");
                     bundle.putString("language", "spanish");
                     saveLanguage("spanish");
 
-                    startActivity(homeIntent, bundle);
-                    finish();
+                    loadTexts("spanish", homeIntent, bundle);
                 }
             });
 
@@ -67,12 +65,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
             selectFrench.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadTexts("french");
                     bundle.putString("language", "french");
                     saveLanguage("french");
 
-                    startActivity(homeIntent, bundle);
-                    finish();
+                    loadTexts("french", homeIntent, bundle);
                 }
             });
         } else {
@@ -93,120 +89,153 @@ public class LanguageSelectorActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public void loadTexts(String language) {
-        String booksString = null;
-        try {
-
-            InputStream is = getAssets().open(language + "/books.json");
-
-            int size = is.available();
-
-            byte[] buffer = new byte[size];
-
-            is.read(buffer);
-
-            is.close();
-
-            booksString = new String(buffer, "UTF-8");
-
-            JSONArray books = new JSONArray(booksString);
-
-            Verses.truncate();
-            Chapter.truncate();
-            Book.truncate();
-
-            Realm realm = Realm.getDefaultInstance();
-
-            realm.beginTransaction();
-
-            for (int i = 0; i < books.length(); i++) {
-                JSONObject bookObj = books.getJSONObject(i);
-
-                Book book = new Book();
-
-                book.setVersionId(bookObj.getString("version_id"));
-                book.setAbbreviation(bookObj.getString("abbr"));
-                book.setBookGroupId(bookObj.getInt("book_group_id"));
-                book.setBookOrder(bookObj.getInt("ord"));
-                book.setId(bookObj.getString("id"));
-                book.setName(bookObj.getString("name"));
-                book.setOsisEnd(bookObj.getString("osis_end"));
-                book.setTestament(bookObj.getString("testament"));
-
-                realm.copyToRealm(book);
+    public void loadTexts(final String language, final Intent homeIntent, final Bundle bundle) {
 
 
-                String chaptersFileName = book.getId().replace(":","_")+".json";
-                String chaptersString;
+        Realm realm = Realm.getDefaultInstance();
 
-                //load chapters files for this book
-                is = getAssets().open(language + "/chapters/" + chaptersFileName);
-                size = is.available(); buffer = new byte[size]; is.read(buffer); is.close();
+        final RelativeLayout progressLayout = (RelativeLayout) findViewById(R.id.progressLayout);
+        progressLayout.setVisibility(View.VISIBLE);
 
-                chaptersString = new String(buffer, "UTF-8");
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        progressBar.set
 
-                JSONArray chapters = new JSONArray(chaptersString);
+        //TODO: show loading texts screen
 
-                for(int j=0; j < chapters.length(); j++){
-                    JSONObject chapterObj = chapters.getJSONObject(j);
+        Verses.truncate();
+        Chapter.truncate();
+        Book.truncate();
 
-                    Chapter chapter = new Chapter();
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    String booksString = null;
 
-                    chapter.setBook(book);
+                    InputStream is = getAssets().open(language + "/books.json");
 
-                    chapter.setId(chapterObj.getString("id"));
-                    chapter.setChapterOrder(chapterObj.getInt("order"));
-                    chapter.setChapter(chapterObj.getString("chapter"));
-                    chapter.setLabel(chapterObj.getString("label"));
-                    chapter.setDisplay(chapterObj.getString("display"));
-                    chapter.setOsisEnd(chapterObj.getString("osis_end"));
+                    int size = is.available();
 
-                    realm.copyToRealmOrUpdate(chapter);
+                    byte[] buffer = new byte[size];
 
-                    book.getChapters().add(chapter);
+                    is.read(buffer);
 
-                    String versesFileName = chapter.getId().replace(":","_")+".json";
-                    String versesString;
+                    is.close();
 
-                    //load verses files for this book
-                    is = getAssets().open(language + "/verses/" + versesFileName);
-                    size = is.available(); buffer = new byte[size]; is.read(buffer); is.close();
+                    booksString = new String(buffer, "UTF-8");
 
-                    versesString = new String(buffer, "UTF-8");
+                    final JSONArray books = new JSONArray(booksString);
 
-                    try {
+                    for (int i = 0; i < books.length(); i++) {
+                        JSONObject bookObj = books.getJSONObject(i);
 
-                        JSONObject versesObj = new JSONObject(versesString);
+                        Book book = new Book();
 
-                        Verses verses = new Verses();
+                        book.setVersionId(bookObj.getString("version_id"));
+                        book.setAbbreviation(bookObj.getString("abbr"));
+                        book.setBookGroupId(bookObj.getInt("book_group_id"));
+                        book.setBookOrder(bookObj.getInt("ord"));
+                        book.setId(bookObj.getString("id"));
+                        book.setName(bookObj.getString("name"));
+                        book.setOsisEnd(bookObj.getString("osis_end"));
+                        book.setTestament(bookObj.getString("testament"));
 
-                        verses.setBook(book);
-                        verses.setChapter(chapter);
+                        realm.copyToRealm(book);
 
-                        verses.setLabel(versesObj.getString("label"));
-                        verses.setDisplay(versesObj.getString("display"));
-                        verses.setId(versesObj.getString("id"));
-                        verses.setNextChapterId(versesObj.getString("nextChapterId"));
-                        verses.setPrevChapterId(versesObj.getString("prevChapterId"));
-                        verses.setText(versesObj.getString("text"));
-                        verses.setVerseOrder(versesObj.getInt("order"));
 
-                        realm.copyToRealmOrUpdate(verses);
+                        String chaptersFileName = book.getId().replace(":", "_") + ".json";
+                        String chaptersString;
 
-                        chapter.setVerses(verses);
+                        //load chapters files for this book
+                        is = getAssets().open(language + "/chapters/" + chaptersFileName);
+                        size = is.available();
+                        buffer = new byte[size];
+                        is.read(buffer);
+                        is.close();
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        chaptersString = new String(buffer, "UTF-8");
+
+                        JSONArray chapters = new JSONArray(chaptersString);
+
+                        for (int j = 0; j < chapters.length(); j++) {
+                            JSONObject chapterObj = chapters.getJSONObject(j);
+
+                            Chapter chapter = new Chapter();
+
+                            chapter.setBook(book);
+
+                            chapter.setId(chapterObj.getString("id"));
+                            chapter.setChapterOrder(chapterObj.getInt("order"));
+                            chapter.setChapter(chapterObj.getString("chapter"));
+                            chapter.setLabel(chapterObj.getString("label"));
+                            chapter.setDisplay(chapterObj.getString("display"));
+                            chapter.setOsisEnd(chapterObj.getString("osis_end"));
+
+                            realm.copyToRealmOrUpdate(chapter);
+
+                            book.getChapters().add(chapter);
+
+                            String versesFileName = chapter.getId().replace(":", "_") + ".json";
+                            String versesString;
+
+                            //load verses files for this book
+                            is = getAssets().open(language + "/verses/" + versesFileName);
+                            size = is.available();
+                            buffer = new byte[size];
+                            is.read(buffer);
+                            is.close();
+
+                            versesString = new String(buffer, "UTF-8");
+
+                            try {
+
+                                JSONObject versesObj = new JSONObject(versesString);
+
+                                Verses verses = new Verses();
+
+                                verses.setBook(book);
+                                verses.setChapter(chapter);
+                                verses.setLabel(versesObj.getString("label"));
+                                verses.setDisplay(versesObj.getString("display"));
+                                verses.setId(versesObj.getString("id"));
+                                verses.setNextChapterId(versesObj.getString("nextChapterId"));
+                                verses.setPrevChapterId(versesObj.getString("prevChapterId"));
+                                verses.setText(versesObj.getString("text"));
+                                verses.setVerseOrder(versesObj.getInt("order"));
+
+                                realm.copyToRealmOrUpdate(verses);
+
+                                chapter.setVerses(verses);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
                     }
-                    
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
                 }
             }
-        }catch (JSONException | IOException e) {
-            e.printStackTrace();
-            Realm.getDefaultInstance().cancelTransaction();
-        } finally {
-            Realm.getDefaultInstance().commitTransaction();
-        }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                startActivity(homeIntent, bundle);
+                finish();
+
+                progressLayout.setVisibility(View.GONE);
+                //Hide loading layout
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Hide loading layout
+
+                progressLayout.setVisibility(View.GONE);
+            }
+
+        });
 
     }
 }

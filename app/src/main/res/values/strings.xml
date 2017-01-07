@@ -17,4 +17,7 @@
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>
     <string name="message_elipses">Message...</string>
+
+    <string name="auth0_client_id">qrQYkbhyQTnJJHMfDGF0Yhz04DcKbFKW</string>
+    <string name="auth0_domain">light-app.eu.auth0.com</string>
 </resources>

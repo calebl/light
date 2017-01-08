@@ -9,17 +9,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bigndesign.light.adapters.Adapters.MessageAdapter;
 import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.messaging.Message;
 import com.sinch.android.rtc.messaging.MessageClient;
 import com.sinch.android.rtc.messaging.MessageClientListener;
 import com.sinch.android.rtc.messaging.MessageDeliveryInfo;
 import com.sinch.android.rtc.messaging.MessageFailureInfo;
+import com.sinch.android.rtc.messaging.WritableMessage;
 
 import java.util.List;
 
+/*
+The messaging portion of this app adapted from https://github.com/sinch/android-messaging-tutorial
+ */
 public class AskActivity extends AppCompatActivity {
     private String recipientId;
     private EditText messageBodyField;
@@ -27,6 +33,9 @@ public class AskActivity extends AppCompatActivity {
     private MessageService.MessageServiceInterface messageService;
     private String currentUserId;
     private ServiceConnection serviceConnection = new MyServiceConnection();
+    private MessageClientListener messageClientListener = new MyMessageClientListener();
+    private ListView messagesList;
+    private MessageAdapter messageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +44,18 @@ public class AskActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Instance of MessageAdapter
+        messagesList = (ListView) findViewById(R.id.listMessages);
+        messageAdapter = new MessageAdapter(this);
+        messagesList.setAdapter(messageAdapter);
+
         final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
 
         startService(serviceIntent);
 
         bindService(new Intent(this, MessageService.class), serviceConnection, BIND_AUTO_CREATE);
 
+        recipientId = "RECIPIENT_ID";
         messageBodyField = (EditText) findViewById(R.id.messageBodyField);
 
         //listen for a click on the send button
@@ -64,6 +79,7 @@ public class AskActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         unbindService(serviceConnection);
+        messageService.removeMessageClientListener(messageClientListener);
         super.onDestroy();
     }
 
@@ -72,6 +88,8 @@ public class AskActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             messageService = (MessageService.MessageServiceInterface) iBinder;
+
+            messageService.addMessageClientListener(messageClientListener);
         }
 
         @Override
@@ -93,15 +111,17 @@ public class AskActivity extends AppCompatActivity {
         @Override
         public void onIncomingMessage(MessageClient client, Message message) {
             //Display an incoming message
+            if (message.getSenderId().equals(recipientId)) {
+                WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
+                messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_INCOMING);
+            }
         }
 
         @Override
         public void onMessageSent(MessageClient client, Message message, String recipientId) {
             //Display the message that was just sent
-
-            //Later, I'll show you how to store the
-            //message in Parse, so you can retrieve and
-            //display them every time the conversation is opened
+            WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
+            messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_OUTGOING);
         }
 
         //Do you want to notify your user when the message is delivered?

@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by Greg on 1/7/2017.
+ * Displays incoming and outgoing messages on the left and right of the screen
  */
 
 public class MessageAdapter extends BaseAdapter {

@@ -1,4 +1,4 @@
-package com.bigndesign.light.adapters.ExpandableListAdapter;
+package com.bigndesign.light.adapters.Adapters;
 
 /**
  * Created by Greg on 12/29/2016.

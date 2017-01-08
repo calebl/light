@@ -13,7 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import com.bigndesign.light.adapters.ExpandableListAdapter.ExpandableListAdapter;
+import com.bigndesign.light.adapters.Adapters.ExpandableListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

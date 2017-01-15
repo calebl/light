@@ -1,8 +1,8 @@
 package com.bigndesign.light;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.auth0.android.Auth0;
@@ -16,7 +16,6 @@ import com.auth0.android.result.Credentials;
 public class LoginActivity extends AppCompatActivity {
 
     private Lock mLock;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         mLock = null;
     }
 
-
     private final LockCallback mCallback = new AuthenticationCallback() {
         @Override
         public void onAuthentication(Credentials credentials) {
@@ -50,11 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             bundle.putString("userId", credentials.getIdToken());
             askIntent.putExtras(bundle);
 
-            final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
-            serviceIntent.putExtra("userId", credentials.getIdToken());
-
             startActivity(askIntent, bundle);
-            //startService(serviceIntent);
 
             finish();
         }

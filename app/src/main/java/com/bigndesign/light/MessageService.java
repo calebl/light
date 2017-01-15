@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 import com.sinch.android.rtc.ClientRegistration;
 import com.sinch.android.rtc.Sinch;
@@ -47,6 +46,9 @@ public class MessageService extends Service implements SinchClientListener {
 
         if (currentUserId != null && !isSinchClientStarted()) {
             startSinchClient(currentUserId);
+        } else {
+            broadcastIntent.putExtra("success", true);
+            broadcaster.sendBroadcast(broadcastIntent);
         }
 
         broadcaster = LocalBroadcastManager.getInstance(this);
@@ -73,12 +75,6 @@ public class MessageService extends Service implements SinchClientListener {
 
         sinchClient.checkManifest();
         sinchClient.start();
-
-        if(isSinchClientStarted()){
-            Toast.makeText(getApplicationContext(), "Sinch Client is Started", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Sinch Client is NOT Started", Toast.LENGTH_LONG).show();
-        }
     }
 
     private boolean isSinchClientStarted() {

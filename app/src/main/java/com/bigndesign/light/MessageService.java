@@ -33,17 +33,6 @@ public class MessageService extends Service implements SinchClientListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        //get the current user id from Parse
-        //currentUserId = ParseUser.getCurrentUser().getObjectId();
-        //String userId = intent.getStringExtra("userId");
-        //********Hard code username until auth is functional
-        //currentUserId = userId;
-
-        if(currentUserId == null){
-            currentUserId = "user1";
-        }
-
         if (currentUserId != null && !isSinchClientStarted()) {
             startSinchClient(currentUserId);
         } else {

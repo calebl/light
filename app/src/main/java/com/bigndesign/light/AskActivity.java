@@ -66,8 +66,7 @@ public class AskActivity extends AppCompatActivity {
 
         bindService(new Intent(this, MessageService.class), serviceConnection, BIND_AUTO_CREATE);
 
-        //recipientId = "586b1594fbc68c491b6ca900";
-        recipientId = "user2";
+        recipientId = "auth0|587a8163f299cf16c0558ab4";
         messageBodyField = (EditText) findViewById(R.id.messageBodyField);
 
         //listen for a click on the send button

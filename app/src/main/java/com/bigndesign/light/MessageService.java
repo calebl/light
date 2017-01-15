@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import com.sinch.android.rtc.ClientRegistration;
 import com.sinch.android.rtc.Sinch;
@@ -33,8 +34,13 @@ public class MessageService extends Service implements SinchClientListener {
 
         //get the current user id from Parse
         //currentUserId = ParseUser.getCurrentUser().getObjectId();
+        //String userId = intent.getStringExtra("userId");
         //********Hard code username until auth is functional
-        currentUserId = "BillDing";
+        //currentUserId = userId;
+
+        if(currentUserId == null){
+            currentUserId = "user1";
+        }
 
         if (currentUserId != null && !isSinchClientStarted()) {
             startSinchClient(currentUserId);
@@ -62,6 +68,12 @@ public class MessageService extends Service implements SinchClientListener {
 
         sinchClient.checkManifest();
         sinchClient.start();
+
+        if(isSinchClientStarted()){
+            Toast.makeText(getApplicationContext(), "Sinch Client is Started", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Sinch Client is NOT Started", Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean isSinchClientStarted() {

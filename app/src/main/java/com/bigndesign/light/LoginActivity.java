@@ -47,10 +47,15 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
             Bundle bundle = new Bundle();
-
             bundle.putString("userId", credentials.getIdToken());
+            askIntent.putExtras(bundle);
+
+            final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
+            serviceIntent.putExtra("userId", credentials.getIdToken());
 
             startActivity(askIntent, bundle);
+            //startService(serviceIntent);
+
             finish();
         }
 

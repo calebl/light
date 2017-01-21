@@ -1,6 +1,7 @@
 package com.bigndesign.light;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +23,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.SecureRandom;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,11 +56,39 @@ public class LoginActivity extends AppCompatActivity {
         mLock = null;
     }
 
+    public void saveID(String sinch_id, String id){
+
+        // All objects are from android.context.Context
+        SharedPreferences settings = getSharedPreferences(sinch_id, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("sinch_id", id);
+
+        // Commit the edits
+        editor.commit();
+    }
+
     private final LockCallback mCallback = new AuthenticationCallback() {
         @Override
         public void onAuthentication(Credentials credentials) {
             String accessToken = credentials.getAccessToken();
-            new GetUserId().execute("https://" + getString(R.string.auth0_domain) + "/userinfo/?access_token=" + accessToken);
+            //new GetUserId().execute("https://" + getString(R.string.auth0_domain) + "/userinfo/?access_token=" + accessToken);
+
+            // Restore id
+            String sinch_id = "sinch_id";
+            SharedPreferences settings = getSharedPreferences(sinch_id, 0);
+            final String id = settings.getString("sinch_id", "none");
+
+            if(id.equals("none")){
+                //Generate id
+                SecureRandom random = new SecureRandom();
+                String user_id = new BigInteger(130, random).toString(32);
+                userId =user_id;
+
+                saveID(sinch_id, user_id);
+            } else {
+                userId = id;
+            }
+
 
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);

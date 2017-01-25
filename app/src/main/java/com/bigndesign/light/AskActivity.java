@@ -58,15 +58,18 @@ public class AskActivity extends AppCompatActivity {
         messageAdapter = new MessageAdapter(this);
         messagesList.setAdapter(messageAdapter);
 
+        //Query all the messages, add messages to messageAdapter
+
         final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
         Bundle bundle = getIntent().getExtras();
         String userId = bundle.getString("userId");
+
         serviceIntent.putExtra("userId", userId);
         startService(serviceIntent);
 
         bindService(new Intent(this, MessageService.class), serviceConnection, BIND_AUTO_CREATE);
 
-        recipientId = "auth0|587a8163f299cf16c0558ab4";
+        recipientId = "gjab152ub4rve0q5uk08dqu9rk";
         messageBodyField = (EditText) findViewById(R.id.messageBodyField);
 
         //listen for a click on the send button
@@ -125,6 +128,8 @@ public class AskActivity extends AppCompatActivity {
             if (message.getSenderId().equals(recipientId)) {
                 WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
                 messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_INCOMING);
+
+            //Save incoming message to DB
             }
         }
 
@@ -133,6 +138,8 @@ public class AskActivity extends AppCompatActivity {
             //Display the message that was just sent
             WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
             messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_OUTGOING);
+
+            //Save outgoing message to DB
         }
 
         //Do you want to notify your user when the message is delivered?

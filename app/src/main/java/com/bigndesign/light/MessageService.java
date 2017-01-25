@@ -33,11 +33,13 @@ public class MessageService extends Service implements SinchClientListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String currentUserId = intent.getStringExtra("userId");
+
         if (currentUserId != null && !isSinchClientStarted()) {
             startSinchClient(currentUserId);
         } else {
-            broadcastIntent.putExtra("success", true);
-            broadcaster.sendBroadcast(broadcastIntent);
+       //     broadcastIntent.putExtra("success", true);
+       //     broadcaster.sendBroadcast(broadcastIntent);
         }
 
         broadcaster = LocalBroadcastManager.getInstance(this);

@@ -8,11 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.auth0.android.Auth0;
 import com.auth0.android.lock.AuthenticationCallback;
 import com.auth0.android.lock.Lock;
 import com.auth0.android.lock.LockCallback;
-import com.auth0.android.lock.UsernameStyle;
 import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
 
@@ -39,22 +37,48 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
+        //Comment out until find replacement for Auth0
+        /*Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
         mLock = Lock.newBuilder(auth0, mCallback)
                 .withUsernameStyle(UsernameStyle.USERNAME)
                 .closable(true)
                 // Add parameters to the Lock Builder
                 .build(this);
-        startActivity(mLock.newIntent(this));
+        startActivity(mLock.newIntent(this));*/
+
+        // Restore id
+        String sinch_id = "sinch_id";
+        SharedPreferences settings = getSharedPreferences(sinch_id, 0);
+        final String id = settings.getString("sinch_id", "none");
+
+        if(id.equals("none")){
+            //Generate id
+            SecureRandom random = new SecureRandom();
+            String user_id = new BigInteger(130, random).toString(32);
+            userId =user_id;
+
+            saveID(sinch_id, user_id);
+        } else {
+            userId = id;
+        }
+
+
+        Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
+        Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId);
+        askIntent.putExtras(bundle);
+
+        startActivity(askIntent, bundle);
     }
 
-    @Override
+/*    @Override
     protected void onDestroy() {
         super.onDestroy();
         // Your own Activity code
         mLock.onDestroy(this);
         mLock = null;
-    }
+    }*/
 
     public void saveID(String sinch_id, String id){
 

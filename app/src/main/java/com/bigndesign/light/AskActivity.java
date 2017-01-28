@@ -1,15 +1,10 @@
 package com.bigndesign.light;
 
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -36,13 +31,10 @@ public class AskActivity extends AppCompatActivity {
     private EditText messageBodyField;
     private String messageBody;
     private MessageService.MessageServiceInterface messageService;
-    private String currentUserId;
     private ServiceConnection serviceConnection = new MyServiceConnection();
     private MessageClientListener messageClientListener = new MyMessageClientListener();
     private ListView messagesList;
     private MessageAdapter messageAdapter;
-    private BroadcastReceiver receiver = null;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +43,9 @@ public class AskActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //showSpinner();
-
-        /*final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
-        Bundle bundle = getIntent().getExtras();
-        String userId = bundle.getString("userId");
-
-        serviceIntent.putExtra("userId", userId);
-        startService(serviceIntent);*/
-
         bindService(new Intent(this, MessageService.class), serviceConnection, BIND_AUTO_CREATE);
 
-        //Instance of MessageAdapter
+        //Instance of MessageAdapter to display messages
         messagesList = (ListView) findViewById(R.id.listMessages);
         messageAdapter = new MessageAdapter(this);
         messagesList.setAdapter(messageAdapter);
@@ -152,26 +135,5 @@ public class AskActivity extends AppCompatActivity {
         //Don't worry about this right now
         @Override
         public void onShouldSendPushData(MessageClient client, Message message, List<PushPair> pushPairs) {}
-    }
-
-    //show a loading spinner while the sinch client starts
-    private void showSpinner() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
-
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Boolean success = intent.getBooleanExtra("success", false);
-                progressDialog.dismiss();
-                if (!success) {
-                    Toast.makeText(getApplicationContext(), "Messaging service failed to start", Toast.LENGTH_LONG).show();
-                }
-            }
-        };
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("com.bigndesign.light.AskActivity"));
     }
 }

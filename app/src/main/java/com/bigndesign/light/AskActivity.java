@@ -51,7 +51,16 @@ public class AskActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        showSpinner();
+        //showSpinner();
+
+        /*final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
+        Bundle bundle = getIntent().getExtras();
+        String userId = bundle.getString("userId");
+
+        serviceIntent.putExtra("userId", userId);
+        startService(serviceIntent);*/
+
+        bindService(new Intent(this, MessageService.class), serviceConnection, BIND_AUTO_CREATE);
 
         //Instance of MessageAdapter
         messagesList = (ListView) findViewById(R.id.listMessages);
@@ -60,16 +69,10 @@ public class AskActivity extends AppCompatActivity {
 
         //Query all the messages, add messages to messageAdapter
 
-        final Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
-        Bundle bundle = getIntent().getExtras();
-        String userId = bundle.getString("userId");
+        //Test IDs
+        recipientId = "gjab152ub4rve0q5uk08dqu9rk"; //id for S7
+        //recipientId = "k2vii3mfj4qr38675uramvhba7"; //id for S5
 
-        serviceIntent.putExtra("userId", userId);
-        startService(serviceIntent);
-
-        bindService(new Intent(this, MessageService.class), serviceConnection, BIND_AUTO_CREATE);
-
-        recipientId = "gjab152ub4rve0q5uk08dqu9rk";
         messageBodyField = (EditText) findViewById(R.id.messageBodyField);
 
         //listen for a click on the send button

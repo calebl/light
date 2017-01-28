@@ -1,9 +1,14 @@
 package com.bigndesign.light;
 
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Lock mLock;
     private String userId;
+    private ProgressDialog progressDialog;
+    private BroadcastReceiver receiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +71,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
-        Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("userId", userId);
-        askIntent.putExtras(bundle);
 
-        startActivity(askIntent, bundle);
+        Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
+
+        Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
+
+        showSpinner();
+        startActivity(askIntent);
+        serviceIntent.putExtra("userId", userId);
+        startService(serviceIntent);
     }
 
-/*    @Override
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Your own Activity code
-        mLock.onDestroy(this);
-        mLock = null;
-    }*/
+
+        //mLock.onDestroy(this);
+        //mLock = null;
+    }
 
     public void saveID(String sinch_id, String id){
 
@@ -202,5 +212,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         return response.toString();
+    }
+
+    //show a loading spinner while the sinch client starts
+    private void showSpinner() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Boolean success = intent.getBooleanExtra("success", false);
+                progressDialog.dismiss();
+                if (!success) {
+                    Toast.makeText(getApplicationContext(), "Messaging service failed to start", Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("com.bigndesign.light.AskActivity"));
     }
 }

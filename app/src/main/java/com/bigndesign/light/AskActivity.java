@@ -21,7 +21,11 @@ import com.sinch.android.rtc.messaging.MessageDeliveryInfo;
 import com.sinch.android.rtc.messaging.MessageFailureInfo;
 import com.sinch.android.rtc.messaging.WritableMessage;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+
+import io.realm.Realm;
 
 /*
 The messaging portion of this app adapted from https://github.com/sinch/android-messaging-tutorial
@@ -115,17 +119,52 @@ public class AskActivity extends AppCompatActivity {
                 WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
                 messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_INCOMING);
 
-            //Save incoming message to DB
+                //Save message to DB
+                saveMessage(message, MessageAdapter.DIRECTION_INCOMING);
             }
         }
 
         @Override
-        public void onMessageSent(MessageClient client, Message message, String recipientId) {
+        public void onMessageSent(MessageClient client, final Message message, String recipientId) {
             //Display the message that was just sent
             WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
             messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_OUTGOING);
 
+            //Save message to DB
+            saveMessage(message, MessageAdapter.DIRECTION_OUTGOING);
+        }
+
+        public void saveMessage(final Message message, final int direction){
             //Save outgoing message to DB
+            Realm realm = Realm.getDefaultInstance();
+
+            realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    try{
+                        com.bigndesign.light.Model.Message outgoingMessage = new com.bigndesign.light.Model.Message();
+
+                        outgoingMessage.setId(getNextMessageKey(realm));
+                        outgoingMessage.setMessageText(message.getTextBody());
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+                        outgoingMessage.setTimeStamp(timeStamp);
+                        outgoingMessage.setDirection(direction);
+
+                        realm.copyToRealm(outgoingMessage);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+        public int getNextMessageKey(Realm realm)
+        {
+            try {
+                return realm.where(com.bigndesign.light.Model.Message.class).max("id").intValue() + 1;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return 0;
+            }
         }
 
         //Do you want to notify your user when the message is delivered?

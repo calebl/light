@@ -24,7 +24,7 @@ import io.realm.Realm;
 
 public class LanguageSelectorActivity extends AppCompatActivity {
 
-    private String LANGUAGE_PREF = "language_pref";
+    public static String LANGUAGE_PREF = "language_pref";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,8 @@ public class LanguageSelectorActivity extends AppCompatActivity {
                     bundle.putString("language", "arabic");
                     saveLanguage("arabic");
 
-                    loadTexts("arabic", homeIntent, bundle);
+                    startActivity(homeIntent, bundle);
+                    finish();
                 }
             });
 
@@ -57,7 +58,8 @@ public class LanguageSelectorActivity extends AppCompatActivity {
                     bundle.putString("language", "spanish");
                     saveLanguage("spanish");
 
-                    loadTexts("spanish", homeIntent, bundle);
+                    startActivity(homeIntent, bundle);
+                    finish();
                 }
             });
 
@@ -68,7 +70,8 @@ public class LanguageSelectorActivity extends AppCompatActivity {
                     bundle.putString("language", "french");
                     saveLanguage("french");
 
-                    loadTexts("french", homeIntent, bundle);
+                    startActivity(homeIntent, bundle);
+                    finish();
                 }
             });
         } else {
@@ -106,9 +109,10 @@ public class LanguageSelectorActivity extends AppCompatActivity {
         Chapter.truncate();
         Book.truncate();
 
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
+
+//        realm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
                 try {
                     String booksString = null;
 
@@ -128,6 +132,8 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
                     for (int i = 0; i < books.length(); i++) {
                         JSONObject bookObj = books.getJSONObject(i);
+
+                        realm.beginTransaction();
 
                         Book book = new Book();
 
@@ -213,29 +219,32 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
                         }
 
+                        realm.commitTransaction();
+
                     }
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
+                    realm.cancelTransaction();
                 }
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
+//            }
+//        }, new Realm.Transaction.OnSuccess() {
+//            @Override
+//            public void onSuccess() {
                 startActivity(homeIntent, bundle);
                 finish();
 
                 progressLayout.setVisibility(View.GONE);
                 //Hide loading layout
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                // Hide loading layout
-
-                progressLayout.setVisibility(View.GONE);
-            }
-
-        });
+//            }
+//        }, new Realm.Transaction.OnError() {
+//            @Override
+//            public void onError(Throwable error) {
+//                // Hide loading layout
+//
+//                progressLayout.setVisibility(View.GONE);
+//            }
+//
+//        });
 
     }
 }

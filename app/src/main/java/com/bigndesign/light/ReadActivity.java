@@ -1,5 +1,6 @@
 package com.bigndesign.light;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -21,6 +22,9 @@ import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
+import static com.bigndesign.light.LanguageSelectorActivity.LANGUAGE_PREF;
 
 public class ReadActivity extends AppCompatActivity {
 
@@ -31,6 +35,7 @@ public class ReadActivity extends AppCompatActivity {
     private TextView title;
     private List<Book> bookList;
     private PopupMenu popupMenu;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,8 @@ public class ReadActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        realm = getRealmDatabase();
 
         final WebView webView = (WebView) findViewById(R.id.readView);
 
@@ -142,8 +149,6 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void loadDefaultVerses() {
-        Realm realm = Realm.getDefaultInstance();
-
         Book book = realm.where(Book.class).findAllSorted("bookOrder").first();
 
         Chapter chapter = book.getChapters().sort("chapterOrder").first();
@@ -156,8 +161,6 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void loadPreviousChapterVerses(){
-        Realm realm = Realm.getDefaultInstance();
-
         String previousChapterId = verses.getPrevChapterId();
         Chapter chapter = realm.where(Chapter.class).equalTo("id", previousChapterId).findFirst();
         Book book = chapter.getBook();
@@ -181,8 +184,6 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void loadNextChapterVerses(){
-        Realm realm = Realm.getDefaultInstance();
-
         String nextChapterId = verses.getNextChapterId();
         Chapter chapter = realm.where(Chapter.class).equalTo("id", nextChapterId).findFirst();
         Book book = chapter.getBook();
@@ -206,8 +207,6 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void loadVerses(String book, String chapterNumber){
-        Realm realm = Realm.getDefaultInstance();
-
         Chapter chapter = realm.where(Chapter.class).equalTo("book.name", book).equalTo("chapter",chapterNumber).findFirst();
 
         if (chapter != null){
@@ -246,7 +245,25 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void loadBookList(){
-        Realm realm = Realm.getDefaultInstance();
         bookList = realm.where(Book.class).findAllSorted("bookOrder");
+    }
+
+    public Realm getRealmDatabase(){
+        SharedPreferences settings = getSharedPreferences(LANGUAGE_PREF, 0);
+        String language = settings.getString("language","arabic");
+
+        String realmFile = "spanish.realm";
+        if(language.equals("spanish")){
+            realmFile = "spanish.realm";
+        } else if(language.equals("arabic")){
+            realmFile= "arabic.realm";
+        } else if (language.equals("french")){
+            realmFile = "french.realm";
+        }
+
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .assetFile(realmFile).build();
+
+        return Realm.getInstance(config);
     }
 }

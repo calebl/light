@@ -1,6 +1,7 @@
 package com.bigndesign.light;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
+
+import java.io.File;
+
+import io.realm.Realm;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -50,6 +55,38 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        exportDatabase();
+    }
 
+    public void exportDatabase() {
+
+        // init realm
+        Realm realm = Realm.getDefaultInstance();
+
+        File exportRealmFile = null;
+//        try {
+            // get or create an "export.realm" file
+            exportRealmFile = new File(getExternalCacheDir(), "export.realm");
+
+            // if "export.realm" already exists, delete
+            exportRealmFile.delete();
+
+            // copy current realm to "export.realm"
+            realm.writeCopyTo(exportRealmFile);
+
+//        }
+        realm.close();
+
+        // init email intent and add export.realm as attachment
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_EMAIL, "YOUR MAIL");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "YOUR SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT, "YOUR TEXT");
+        Uri u = Uri.fromFile(exportRealmFile);
+        intent.putExtra(Intent.EXTRA_STREAM, u);
+
+        // start email intent
+        startActivity(Intent.createChooser(intent, "YOUR CHOOSER TITLE"));
     }
 }

@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.bigndesign.light.adapters.Adapters.MessageAdapter;
 
+import java.util.LinkedHashMap;
+
 import im.delight.android.ddp.MeteorCallback;
 import im.delight.android.ddp.MeteorSingleton;
+import im.delight.android.ddp.db.Document;
 
 /*
 The messaging portion of this app adapted from https://github.com/sinch/android-messaging-tutorial
@@ -37,12 +40,15 @@ public class AskActivity extends AppCompatActivity  implements MeteorCallback {
         messageAdapter = new MessageAdapter(this);
         messagesList.setAdapter(messageAdapter);
 
-        subscriptionId = MeteorSingleton.getInstance().subscribe("messages");
+
+        recipientId = "BgsfD5KSrr2jLKv6k"; //id for admin
+
+        MeteorSingleton.getInstance().addCallback(this);
+        subscriptionId = MeteorSingleton.getInstance().subscribe("conversation", new Object[]{recipientId});
 
         //Query all the messages, add messages to messageAdapter
 
         //Test IDs
-        recipientId = "qXAsARcLGi3WbNE7i"; //id for S7
 
         messageBodyField = (EditText) findViewById(R.id.messageBodyField);
 
@@ -57,8 +63,10 @@ public class AskActivity extends AppCompatActivity  implements MeteorCallback {
                     return;
                 }
 
-                MeteorSingleton.getInstance().call("messages.insert", new Object[]{messageBody, recipientId, MeteorSingleton.getInstance().getUserId()});
+                MeteorSingleton.getInstance().call("messages.insert", new Object[]{messageBody, MeteorSingleton.getInstance().getUserId(), recipientId});
                 messageBodyField.setText("");
+
+
             }
         });
     }
@@ -89,6 +97,22 @@ public class AskActivity extends AppCompatActivity  implements MeteorCallback {
     public void onDataAdded(String collectionName, String documentID, String newValuesJson) {
         if(collectionName.equals("messages")){
             Log.d("AskActivity", documentID);
+
+            Document message = MeteorSingleton.getInstance().getDatabase().getCollection("messages").getDocument(documentID);
+            LinkedHashMap sender = (LinkedHashMap) message.getField("sender");
+            LinkedHashMap recipient = (LinkedHashMap) message.getField("recipient");
+
+
+            //if senderID matches this user, mark as outgoing and add to messagesAdapter
+            if(sender.get("id").equals(MeteorSingleton.getInstance().getUserId())){
+                messageAdapter.addMessage(message.getField("text").toString(), MessageAdapter.DIRECTION_OUTGOING);
+
+            } else if (recipient.get("id").equals(MeteorSingleton.getInstance().getUserId())){
+                //if recipientID matches this user, mark as incoming and add to messagesAdapter
+                messageAdapter.addMessage(message.getField("text").toString(), MessageAdapter.DIRECTION_INCOMING);
+            }
+
+
         }
     }
 

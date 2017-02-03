@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import im.delight.android.ddp.MeteorSingleton;
 import im.delight.android.ddp.ResultListener;
-import im.delight.android.ddp.db.memory.InMemoryDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,10 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        String serverUrl = "wss://light-server-yrllrmcjbl.now.sh/websocket";
-
-        //PRODUCTION
-        MeteorSingleton.createInstance(this, serverUrl, new InMemoryDatabase());
         MeteorSingleton.getInstance().connect();
 
         setContentView(R.layout.activity_login);
@@ -119,7 +114,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if(!MeteorSingleton.getInstance().isConnected()){
-            Toast.makeText(LoginActivity.this, "Unable to connect to Liquid server. Please try again when you have an internet connection.", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Unable to connect to server. Please try again when you have an internet connection.", Toast.LENGTH_LONG).show();
+            MeteorSingleton.getInstance().connect();
             return;
         }
 

@@ -3,17 +3,14 @@ package com.bigndesign.light;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,28 +22,41 @@ import im.delight.android.ddp.MeteorSingleton;
 import im.delight.android.ddp.ResultListener;
 import im.delight.android.ddp.db.memory.InMemoryDatabase;
 
-public class LoginActivity extends AppCompatActivity {
+/**
+ * Activity which displays a login screen to the user, offering registration as
+ * well.
+ */
+public class SignupActivity extends Activity {
 
-    private String userId;
-    private ProgressDialog progressDialog;
-    private BroadcastReceiver receiver = null;
+    /**
+     * The default email to populate the email field with.
+     */
+    public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+    public static final String SHARED_PREFS_FILENAME = "lqd-prefs";
+    private String TAG = "Liquid.LoginActivity";
 
     // Values for email and password at the time of the login attempt.
-    private String mUsername;
+    private String mEmail;
     private String mPassword;
+    private String mUsername;
+    private String mPasswordVerify;
 
     // UI references.
+    private EditText mEmailView;
     private EditText mUsernameView;
+
     private EditText mPasswordView;
     private View mLoginFormView;
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
     private View focusView;
+    private EditText mPasswordVerifyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        setContentView(R.layout.activity_signup);
 
         String serverUrl = "wss://light-server-yrllrmcjbl.now.sh/websocket";
 
@@ -54,56 +64,42 @@ public class LoginActivity extends AppCompatActivity {
         MeteorSingleton.createInstance(this, serverUrl, new InMemoryDatabase());
         MeteorSingleton.getInstance().connect();
 
-        setContentView(R.layout.activity_login);
+        // Set up the signup form.
+        mUsernameView = (EditText) findViewById(R.id.username);
 
-        // Set up the login form.
-        mUsernameView = (EditText) findViewById(R.id.email);
+        mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+        mEmailView = (EditText) findViewById(R.id.email);
+        mEmailView.setText(mEmail);
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView
+
+        mPasswordVerifyView = (EditText) findViewById(R.id.password_verify);
+        mPasswordVerifyView
                 .setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView textView, int id,
                                                   KeyEvent keyEvent) {
-                        if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                            attemptLogin();
+                        if (id == R.id.sign_up_button || id == EditorInfo.IME_NULL) {
+                            attemptSignup();
                             return true;
                         }
                         return false;
                     }
                 });
 
-        mLoginFormView = findViewById(R.id.login_form);
+        mLoginFormView = findViewById(R.id.signup_form);
         mLoginStatusView = findViewById(R.id.login_status);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        attemptLogin();
-                    }
-                }
-        );
 
-        final Intent signupIntent = new Intent(this, SignupActivity.class);
         findViewById(R.id.sign_up_button).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-//                        overridePendingTransition(Animation.F);
-                        startActivity(signupIntent);
+                        attemptSignup();
                     }
                 }
         );
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        //mLock.onDestroy(this);
-        //mLock = null;
     }
 
     /**
@@ -111,21 +107,26 @@ public class LoginActivity extends AppCompatActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptLogin() {
+
+    public void attemptSignup() {
 
         // Reset errors.
         mUsernameView.setError(null);
+        mEmailView.setError(null);
         mPasswordView.setError(null);
+        mPasswordVerifyView.setError(null);
 
 
         if(!MeteorSingleton.getInstance().isConnected()){
-            Toast.makeText(LoginActivity.this, "Unable to connect to Liquid server. Please try again when you have an internet connection.", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignupActivity.this, "Unable to connect to Liquid server. Please try again when you have an internet connection.", Toast.LENGTH_LONG).show();
             return;
         }
 
         // Store values at the time of the login attempt.
         mUsername = mUsernameView.getText().toString();
+        mEmail = mEmailView.getText().toString();
         mPassword = mPasswordView.getText().toString();
+        mPasswordVerify = mPasswordVerifyView.getText().toString();
 
         boolean cancel = false;
         focusView = null;
@@ -135,17 +136,18 @@ public class LoginActivity extends AppCompatActivity {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(mUsername)) {
+        } else if (TextUtils.isEmpty(mUsername)){
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
+            cancel = true;
+        } else if (!mPassword.equals(mPasswordVerify)){
+            mPasswordVerifyView.setError("Password must match.");
+            focusView = mPasswordVerifyView;
             cancel = true;
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
+            // There was an error; don't attempt signup and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
@@ -155,33 +157,32 @@ public class LoginActivity extends AppCompatActivity {
 
 
             final Intent askIntent = new Intent(this, AskActivity.class);
-            //login with DDP
+            //signup with DDP
 
-            MeteorSingleton.getInstance().loginWithUsername(mUsername, mPassword, new ResultListener() {
+
+            MeteorSingleton.getInstance().registerAndLogin(mUsername, null, mPassword, new ResultListener() {
                 @Override
                 public void onSuccess(String s) {
-                    userId = MeteorSingleton.getInstance().getUserId();
+                    Log.i(TAG, "signup successful!");
 
-                    askIntent.putExtra("username", mUsername);
-                    askIntent.putExtra("userId", userId);
+//                    LiquidUser.setUsername(mEmail);
+//                    LiquidUser.setUserId(MeteorSingleton.getInstance().getUserId());
+
+                    MeteorSingleton.getInstance().call("checkForInvites");
                     startActivity(askIntent);
                     finish();
                 }
 
                 @Override
                 public void onError(String s, String reason, String s2) {
-
+                    showProgress(false);
                     switch(reason){
                         case "Incorrect password":
                             mPasswordView.setError(getString(R.string.error_incorrect_password));
                             mPasswordView.requestFocus();
-
-                            showProgress(false);
-                            break;
-                        default:
-                            showProgress(false);
-                            Toast.makeText(LoginActivity.this, reason, Toast.LENGTH_SHORT).show();
                     }
+
+                    Toast.makeText(SignupActivity.this, reason, Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -230,36 +231,32 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void saveID(String sinch_id, String id){
-
-        // All objects are from android.context.Context
-        SharedPreferences settings = getSharedPreferences(sinch_id, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("sinch_id", id);
-
-        // Commit the edits
-        editor.commit();
-    }
-
-
-    //show a loading spinner while the sinch client starts
-    private void showSpinner() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Loading");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
-
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Boolean success = intent.getBooleanExtra("success", false);
-                progressDialog.dismiss();
-                if (!success) {
-                    Toast.makeText(getApplicationContext(), "Messaging service failed to start", Toast.LENGTH_LONG).show();
-                }
+    /**
+     * Used to display error dialogs
+     *
+     * @param title title of dialog
+     * @param msg   details of error
+     */
+    private void showError(String title, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg)
+                .setTitle(title);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
             }
-        };
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("com.bigndesign.light.AskActivity"));
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
+    /**
+     * Called on resume of activity and initial startup
+     */
+
+    protected void onResume() {
+        super.onResume();
+    }
+
+
 }

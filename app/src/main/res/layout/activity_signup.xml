@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity" >
+    tools:context=".SignupActivity" >
 
     <!-- Login form -->
 
@@ -14,7 +14,7 @@
 
             <include layout="@layout/login_progress"/>
 
-            <include layout="@layout/login_form"/>
+            <include layout="@layout/signup_form"/>
             
         </LinearLayout>
     </ScrollView>

@@ -55,10 +55,20 @@ public class AskActivity extends AppCompatActivity {
         messagesList.setAdapter(messageAdapter);
 
         //Query all the messages, add messages to messageAdapter
+        Realm realm = Realm.getDefaultInstance();
+        List<com.bigndesign.light.Model.Message> listOfMessages = realm.where(com.bigndesign.light.Model.Message.class).findAllSorted("id");
+        for (int i = 0; i < listOfMessages.size(); i++) {
+            WritableMessage message = new WritableMessage("mustHaveNonEmptyUserId", listOfMessages.get(i).getMessageText());
+            if(listOfMessages.get(i).getDirection() == 1){
+                messageAdapter.addMessage(message, MessageAdapter.DIRECTION_OUTGOING);
+            } else {
+                messageAdapter.addMessage(message, MessageAdapter.DIRECTION_INCOMING);
+            }
+        }
 
         //Test IDs
-        recipientId = "gjab152ub4rve0q5uk08dqu9rk"; //id for S7
-        //recipientId = "k2vii3mfj4qr38675uramvhba7"; //id for S5
+        //recipientId = "gjab152ub4rve0q5uk08dqu9rk"; //id for S7
+        recipientId = "pr9edrj97etmh25u5b34i8k68t"; //id for S5
 
         messageBodyField = (EditText) findViewById(R.id.messageBodyField);
 
@@ -160,11 +170,13 @@ public class AskActivity extends AppCompatActivity {
 
         public int getNextMessageKey(Realm realm)
         {
+            int key;
             try {
-                return realm.where(com.bigndesign.light.Model.Message.class).max("id").intValue() + 1;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return 0;
+                key = realm.where(com.bigndesign.light.Model.Message.class).max("id").intValue() + 1;
+            } catch(ArrayIndexOutOfBoundsException ex) {
+                key = 0; // when there is no object in the database yet
             }
+            return key;
         }
 
         //Do you want to notify your user when the message is delivered?

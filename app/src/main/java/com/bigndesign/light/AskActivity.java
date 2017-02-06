@@ -75,12 +75,12 @@ public class AskActivity extends AppCompatActivity  implements MeteorCallback {
     @Override
     public void onDestroy() {
         MeteorSingleton.getInstance().unsubscribe(subscriptionId);
+        MeteorSingleton.getInstance().removeCallbacks();
         super.onDestroy();
     }
 
     @Override
     public void onConnect(boolean signedInAutomatically) {
-        Toast.makeText(getApplicationContext(), "Connected!", Toast.LENGTH_LONG).show();
     }
 
     @Override

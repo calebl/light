@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        exportDatabase();
+//        exportDatabase();
     }
 
     public void exportDatabase() {

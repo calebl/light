@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import im.delight.android.ddp.MeteorSingleton;
 import im.delight.android.ddp.ResultListener;
-import im.delight.android.ddp.db.memory.InMemoryDatabase;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -57,19 +56,10 @@ public class SignupActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_signup);
-
-        String serverUrl = "wss://light-server-yrllrmcjbl.now.sh/websocket";
-
-        //PRODUCTION
-        MeteorSingleton.createInstance(this, serverUrl, new InMemoryDatabase());
         MeteorSingleton.getInstance().connect();
 
         // Set up the signup form.
         mUsernameView = (EditText) findViewById(R.id.username);
-
-        mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-        mEmailView = (EditText) findViewById(R.id.email);
-        mEmailView.setText(mEmail);
 
         mPasswordView = (EditText) findViewById(R.id.password);
 
@@ -112,7 +102,6 @@ public class SignupActivity extends Activity {
 
         // Reset errors.
         mUsernameView.setError(null);
-        mEmailView.setError(null);
         mPasswordView.setError(null);
         mPasswordVerifyView.setError(null);
 
@@ -124,7 +113,6 @@ public class SignupActivity extends Activity {
 
         // Store values at the time of the login attempt.
         mUsername = mUsernameView.getText().toString();
-        mEmail = mEmailView.getText().toString();
         mPassword = mPasswordView.getText().toString();
         mPasswordVerify = mPasswordVerifyView.getText().toString();
 
@@ -168,7 +156,6 @@ public class SignupActivity extends Activity {
 //                    LiquidUser.setUsername(mEmail);
 //                    LiquidUser.setUserId(MeteorSingleton.getInstance().getUserId());
 
-                    MeteorSingleton.getInstance().call("checkForInvites");
                     startActivity(askIntent);
                     finish();
                 }

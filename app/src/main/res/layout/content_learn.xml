@@ -15,7 +15,8 @@
     <ExpandableListView
         android:id="@+id/faq_list"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:longClickable="false">
     </ExpandableListView>
 
 </RelativeLayout>

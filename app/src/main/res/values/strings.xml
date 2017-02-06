@@ -7,7 +7,7 @@
     <string name="title_activity_read">ReadActivity</string>
     <string name="title_activity_learn">Learn</string>
     <string name="title_activity_ask">Connect</string>
-    <string name="read">Read {faw-book}</string>
+    <string name="read">Read</string>
     <string name="connect">Connect</string>
     <string name="angle_left">{faw-angle-left}</string>
     <string name="th_list">{faw-th-list}</string>

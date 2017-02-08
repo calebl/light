@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,37 +7,41 @@
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".HomeActivity"
-    android:background="#aaaaaa">
+    android:background="#aaaaaa"
+    android:weightSum="2"
+    android:orientation="vertical">
+
+    <Button
+        android:text="@string/read"
+        android:id="@+id/readButton"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#f27935"
+        android:layout_width="match_parent"
+        android:elevation="0dp"
+        android:textSize="24sp"
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#2d91aa">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:weightSum="1"
+        android:background="#2d91aa"
+        android:id="@+id/linearLayout">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/learn"
             android:id="@+id/learnButton"
-            android:layout_weight="0.33"
+            android:layout_weight="0.5"
             android:background="#14b9d6"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/read"
-            android:id="@+id/readButton"
-            android:layout_weight="0.33"
-            android:background="#f27935"
-            android:textColor="#ffffff"/>
-
+            android:textColor="#ffffff"
+            android:textAllCaps="true"
+            android:textSize="24sp" />
 
 
         <Button
@@ -45,8 +49,11 @@
             android:layout_height="match_parent"
             android:text="@string/connect"
             android:id="@+id/askButton"
-            android:layout_weight="0.33"
+            android:layout_weight="0.5"
             android:background="#1fbba6"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textAllCaps="true"
+            android:textSize="24sp" />
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

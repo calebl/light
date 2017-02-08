@@ -1,85 +1,96 @@
 package com.bigndesign.light;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.auth0.android.lock.AuthenticationCallback;
-import com.auth0.android.lock.Lock;
-import com.auth0.android.lock.LockCallback;
-import com.auth0.android.lock.utils.LockException;
-import com.auth0.android.result.Credentials;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.SecureRandom;
+import im.delight.android.ddp.MeteorSingleton;
+import im.delight.android.ddp.ResultListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Lock mLock;
     private String userId;
     private ProgressDialog progressDialog;
     private BroadcastReceiver receiver = null;
+
+    // Values for email and password at the time of the login attempt.
+    private String mUsername;
+    private String mPassword;
+
+    // UI references.
+    private EditText mUsernameView;
+    private EditText mPasswordView;
+    private View mLoginFormView;
+    private View mLoginStatusView;
+    private TextView mLoginStatusMessageView;
+    private View focusView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //Comment out until find replacement for Auth0
-        /*Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
-        mLock = Lock.newBuilder(auth0, mCallback)
-                .withUsernameStyle(UsernameStyle.USERNAME)
-                .closable(true)
-                // Add parameters to the Lock Builder
-                .build(this);
-        startActivity(mLock.newIntent(this));*/
+        MeteorSingleton.getInstance().connect();
 
-        // Restore id
-        String sinch_id = "sinch_id";
-        SharedPreferences settings = getSharedPreferences(sinch_id, 0);
-        final String id = settings.getString("sinch_id", "none");
+        setContentView(R.layout.activity_login);
 
-        if(id.equals("none")){
-            //Generate id
-            SecureRandom random = new SecureRandom();
-            String user_id = new BigInteger(130, random).toString(32);
-            userId =user_id;
+        // Set up the login form.
+        mUsernameView = (EditText) findViewById(R.id.email);
 
-            saveID(sinch_id, user_id);
-        } else {
-            userId = id;
-        }
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView
+                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int id,
+                                                  KeyEvent keyEvent) {
+                        if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                            attemptLogin();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
 
+        mLoginFormView = findViewById(R.id.login_form);
+        mLoginStatusView = findViewById(R.id.login_status);
 
-        Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
+        findViewById(R.id.sign_in_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        attemptLogin();
+                    }
+                }
+        );
 
-        Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
+        final Intent signupIntent = new Intent(this, SignupActivity.class);
+        findViewById(R.id.sign_up_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-        Intent serviceIntent = new Intent(getApplicationContext(), MessageService.class);
-
-        showSpinner();
-        startActivity(askIntent);
-        serviceIntent.putExtra("userId", userId);
-        startService(serviceIntent);
+//                        overridePendingTransition(Animation.F);
+                        startActivity(signupIntent);
+                    }
+                }
+        );
     }
 
     @Override
@@ -88,6 +99,131 @@ public class LoginActivity extends AppCompatActivity {
 
         //mLock.onDestroy(this);
         //mLock = null;
+    }
+
+    /**
+     * Attempts to sign in or register the account specified by the login form.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual login attempt is made.
+     */
+    public void attemptLogin() {
+
+        // Reset errors.
+        mUsernameView.setError(null);
+        mPasswordView.setError(null);
+
+
+        if(!MeteorSingleton.getInstance().isConnected()){
+            Toast.makeText(LoginActivity.this, "Unable to connect to server. Please try again when you have an internet connection.", Toast.LENGTH_LONG).show();
+            MeteorSingleton.getInstance().connect();
+            return;
+        }
+
+        // Store values at the time of the login attempt.
+        mUsername = mUsernameView.getText().toString();
+        mPassword = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        focusView = null;
+
+        // Check for a valid password.
+        if (TextUtils.isEmpty(mPassword)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(mUsername)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+
+
+            final Intent askIntent = new Intent(this, AskActivity.class);
+            //login with DDP
+
+            MeteorSingleton.getInstance().loginWithUsername(mUsername, mPassword, new ResultListener() {
+                @Override
+                public void onSuccess(String s) {
+                    userId = MeteorSingleton.getInstance().getUserId();
+
+                    askIntent.putExtra("username", mUsername);
+                    askIntent.putExtra("userId", userId);
+                    startActivity(askIntent);
+                    finish();
+                }
+
+                @Override
+                public void onError(String s, String reason, String s2) {
+
+                    switch(reason){
+                        case "Incorrect password":
+                            mPasswordView.setError(getString(R.string.error_incorrect_password));
+                            mPasswordView.requestFocus();
+
+                            showProgress(false);
+                            break;
+                        default:
+                            showProgress(false);
+                            Toast.makeText(LoginActivity.this, reason, Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        }
+    }
+
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(
+                    android.R.integer.config_shortAnimTime);
+
+            mLoginStatusView.setVisibility(View.VISIBLE);
+            mLoginStatusView.animate().setDuration(shortAnimTime)
+                    .alpha(show ? 1 : 0)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            mLoginStatusView.setVisibility(show ? View.VISIBLE
+                                    : View.GONE);
+                        }
+                    });
+
+            mLoginFormView.setVisibility(View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime)
+                    .alpha(show ? 0 : 1)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            mLoginFormView.setVisibility(show ? View.GONE
+                                    : View.VISIBLE);
+                        }
+                    });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
     public void saveID(String sinch_id, String id){
@@ -101,118 +237,6 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    private final LockCallback mCallback = new AuthenticationCallback() {
-        @Override
-        public void onAuthentication(Credentials credentials) {
-            String accessToken = credentials.getAccessToken();
-            //new GetUserId().execute("https://" + getString(R.string.auth0_domain) + "/userinfo/?access_token=" + accessToken);
-
-            // Restore id
-            String sinch_id = "sinch_id";
-            SharedPreferences settings = getSharedPreferences(sinch_id, 0);
-            final String id = settings.getString("sinch_id", "none");
-
-            if(id.equals("none")){
-                //Generate id
-                SecureRandom random = new SecureRandom();
-                String user_id = new BigInteger(130, random).toString(32);
-                userId =user_id;
-
-                saveID(sinch_id, user_id);
-            } else {
-                userId = id;
-            }
-
-
-            Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
-            Intent askIntent = new Intent(getApplicationContext(), AskActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("userId", userId);
-            askIntent.putExtras(bundle);
-
-            startActivity(askIntent, bundle);
-
-            finish();
-        }
-
-        @Override
-        public void onCanceled() {
-            Toast.makeText(getApplicationContext(), "Log In - Cancelled", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        @Override
-        public void onError(LockException error) {
-            Toast.makeText(getApplicationContext(), "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    //This async class from http://stackoverflow.com/questions/8654876/http-get-using-android-httpurlconnection
-    public class GetUserId extends AsyncTask<String , Void ,String> {
-        String server_response;
-
-        @Override
-        protected String doInBackground(String... strings) {
-
-            URL url;
-            HttpURLConnection urlConnection = null;
-
-            try {
-                url = new URL(strings[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                int responseCode = urlConnection.getResponseCode();
-
-                if(responseCode == HttpURLConnection.HTTP_OK){
-                    server_response = readStream(urlConnection.getInputStream());
-                    JSONObject jsonObject = new JSONObject(server_response);
-                    userId = jsonObject.getString("user_id");
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            Log.e("Response", "" + server_response);
-
-
-        }
-    }
-
-    // Converting InputStream to String
-    private String readStream(InputStream in) {
-        BufferedReader reader = null;
-        StringBuffer response = new StringBuffer();
-        try {
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return response.toString();
-    }
 
     //show a loading spinner while the sinch client starts
     private void showSpinner() {

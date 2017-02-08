@@ -27,13 +27,13 @@
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:gravity="bottom"
         android:layout_alignParentTop="false"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray">
+        android:background="@android:color/darker_gray"
+        android:layout_height="50dp">
 
 
         <Button

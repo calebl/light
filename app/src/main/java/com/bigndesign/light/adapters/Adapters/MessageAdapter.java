@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bigndesign.light.R;
-import com.sinch.android.rtc.messaging.WritableMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +23,15 @@ public class MessageAdapter extends BaseAdapter {
     public static final int DIRECTION_INCOMING = 0;
     public static final int DIRECTION_OUTGOING = 1;
 
-    private List<Pair<WritableMessage, Integer>> messages;
+    private List<Pair<String, Integer>> messages;
     private LayoutInflater layoutInflater;
 
     public MessageAdapter(Activity activity) {
         layoutInflater = activity.getLayoutInflater();
-        messages = new ArrayList<Pair<WritableMessage, Integer>>();
+        messages = new ArrayList<Pair<String, Integer>>();
     }
 
-    public void addMessage(WritableMessage message, int direction) {
+    public void addMessage(String message, int direction) {
         messages.add(new Pair(message, direction));
         notifyDataSetChanged();
     }
@@ -71,17 +70,17 @@ public class MessageAdapter extends BaseAdapter {
         if (convertView == null) {
             int res = 0;
             if (direction == DIRECTION_INCOMING) {
-                res = R.layout.message_right;
-            } else if (direction == DIRECTION_OUTGOING) {
                 res = R.layout.message_left;
+            } else if (direction == DIRECTION_OUTGOING) {
+                res = R.layout.message_right;
             }
             convertView = layoutInflater.inflate(res, viewGroup, false);
         }
 
-        WritableMessage message = messages.get(i).first;
+        String message = messages.get(i).first;
 
         TextView txtMessage = (TextView) convertView.findViewById(R.id.txtMessage);
-        txtMessage.setText(message.getTextBody());
+        txtMessage.setText(message);
 
         return convertView;
     }

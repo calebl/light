@@ -4,11 +4,14 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="learn">LEARN</string>
+    <string name="learnWithIcon">{faw-question-circle}\nLEARN</string>
     <string name="title_activity_read">READ</string>
     <string name="title_activity_learn">LEARN</string>
     <string name="title_activity_ask">CONNECT</string>
     <string name="read">READ</string>
+    <string name="readWithIcon">{faw-book}\nREAD</string>
     <string name="connect">CONNECT</string>
+    <string name="connectWithIcon">{faw-comments}\nCONNECT</string>
     <string name="angle_left">{faw-angle-left}</string>
     <string name="th_list">{faw-th-list}</string>
     <string name="angle_right">{faw-angle-right}</string>

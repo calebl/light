@@ -3,12 +3,13 @@ package com.bigndesign.light;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -25,7 +26,7 @@ import im.delight.android.ddp.ResultListener;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class SignupActivity extends Activity {
+public class SignupActivity extends AppCompatActivity {
 
     /**
      * The default email to populate the email field with.
@@ -54,8 +55,13 @@ public class SignupActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_signup);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         MeteorSingleton.getInstance().connect();
 
         // Set up the signup form.

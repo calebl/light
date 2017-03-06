@@ -1,12 +1,15 @@
 package com.bigndesign.light;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -24,8 +27,6 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-import static com.bigndesign.light.LanguageSelectorActivity.LANGUAGE_PREF;
-
 public class ReadActivity extends AppCompatActivity {
 
     private Verses verses;
@@ -36,6 +37,7 @@ public class ReadActivity extends AppCompatActivity {
     private List<Book> bookList;
     private PopupMenu popupMenu;
     private Realm realm;
+    private String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,21 @@ public class ReadActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        SharedPreferences settings = getSharedPreferences("language_pref", 0);
+        language = settings.getString("language","none");
+
+        DrawableAwesome drable = new DrawableAwesome.DrawableAwesomeBuilder( getApplicationContext(),R.string.fa_comments).build();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageDrawable(drable);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(loginActivity);
+            }
+        });
 
         realm = getRealmDatabase();
 
@@ -108,6 +125,12 @@ public class ReadActivity extends AppCompatActivity {
         loadDefaultVerses();
 
         webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_language_select, menu);
+        return true;
     }
 
     @Override
@@ -249,8 +272,6 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public Realm getRealmDatabase(){
-        SharedPreferences settings = getSharedPreferences(LANGUAGE_PREF, 0);
-        String language = settings.getString("language","arabic");
 
         String realmFile = "spanish.realm";
         if(language.equals("spanish")){
@@ -262,7 +283,8 @@ public class ReadActivity extends AppCompatActivity {
         }
 
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .assetFile(realmFile).build();
+                .assetFile(realmFile)
+                .build();
 
         return Realm.getInstance(config);
     }

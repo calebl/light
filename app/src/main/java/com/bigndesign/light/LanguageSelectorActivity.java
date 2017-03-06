@@ -35,7 +35,7 @@ public class LanguageSelectorActivity extends AppCompatActivity {
 
         // Restore language preferences
         SharedPreferences settings = getSharedPreferences(LANGUAGE_PREF, 0);
-        final String language = settings.getString("language_selection", "none");
+        final String language = settings.getString("language", "none");
 
         //If no language saved, display options and save preference; else, load saved preference
         if(language.equals("none")){
@@ -86,7 +86,7 @@ public class LanguageSelectorActivity extends AppCompatActivity {
         // All objects are from android.context.Context
         SharedPreferences settings = getSharedPreferences(LANGUAGE_PREF, 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("language_selection", language);
+        editor.putString("language", language);
 
         // Commit the edits
         editor.commit();

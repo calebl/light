@@ -7,10 +7,8 @@ package com.bigndesign.light;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ExpandableListView;
 
@@ -27,7 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LearnActivity extends AppCompatActivity {
+public class LearnActivity extends LanguageSelectMenuActivity {
     private List<String> groupList;
     private List<String> childList;
     private Map<String, List<String>> faqCollection;
@@ -62,12 +60,6 @@ public class LearnActivity extends AppCompatActivity {
         final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
                 this, groupList, faqCollection);
         expListView.setAdapter(expListAdapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_language_select, menu);
-        return true;
     }
 
     public void loadText(){

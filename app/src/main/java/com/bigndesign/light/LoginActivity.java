@@ -12,10 +12,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -25,7 +25,7 @@ import android.widget.Toast;
 import im.delight.android.ddp.MeteorSingleton;
 import im.delight.android.ddp.ResultListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends LanguageSelectMenuActivity {
 
     private String userId;
     private ProgressDialog progressDialog;
@@ -95,6 +95,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_language_select, menu);
+        return true;
     }
 
     @Override

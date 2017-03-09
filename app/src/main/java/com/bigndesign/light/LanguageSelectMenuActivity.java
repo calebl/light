@@ -2,6 +2,7 @@ package com.bigndesign.light;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,6 +15,20 @@ public class LanguageSelectMenuActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_language_select, menu);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //Show current language selection in overflow menu
+        SharedPreferences settings = getSharedPreferences("language_pref", 0);
+        String language = settings.getString("language","none");
+
+        if(language.equals("arabic")){
+            toolbar.getMenu().getItem(0).setChecked(true);
+        } else if(language.equals("french")){
+            toolbar.getMenu().getItem(1).setChecked(true);
+        } else if (language.equals("spanish")){
+            toolbar.getMenu().getItem(2).setChecked(true);
+        }
         return true;
     }
 

@@ -44,6 +44,8 @@ public class LanguageSelectMenuActivity extends AppCompatActivity {
                 editor.putString("language", "arabic");
                 // Commit the edits
                 editor.commit();
+                finish();
+                startActivity(getIntent());
                 return true;
             case R.id.menu_french:
                 if (item.isChecked()) item.setChecked(false);
@@ -51,6 +53,8 @@ public class LanguageSelectMenuActivity extends AppCompatActivity {
                 editor.putString("language", "french");
                 // Commit the edits
                 editor.commit();
+                finish();
+                startActivity(getIntent());
                 return true;
             case R.id.menu_spanish:
                 if (item.isChecked()) item.setChecked(false);
@@ -58,6 +62,8 @@ public class LanguageSelectMenuActivity extends AppCompatActivity {
                 editor.putString("language", "spanish");
                 // Commit the edits
                 editor.commit();
+                finish();
+                startActivity(getIntent());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

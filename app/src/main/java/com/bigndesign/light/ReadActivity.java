@@ -52,15 +52,6 @@ public class ReadActivity extends LanguageSelectMenuActivity {
 
         SharedPreferences settings = getSharedPreferences("language_pref", 0);
         language = settings.getString("language","none");
-/*
-        //Show current language selection in overflow menu
-        if(language.equals("spanish")){
-            toolbar.getMenu().getItem(0).setChecked(true);
-        } else if(language.equals("arabic")){
-            toolbar.getMenu().getItem(1).setChecked(true);
-        } else if (language.equals("french")){
-            toolbar.getMenu().getItem(2).setChecked(true);
-        }*/
 
         DrawableAwesome drable = new DrawableAwesome.DrawableAwesomeBuilder( getApplicationContext(),R.string.fa_comments).build();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

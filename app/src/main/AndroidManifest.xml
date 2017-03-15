@@ -65,6 +65,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+        <activity android:name=".LoginOrSignupActivity"
+            android:label="@string/title_activity_loginOrSignup"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.Connect"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

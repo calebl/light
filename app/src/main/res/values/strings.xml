@@ -11,6 +11,7 @@
     <string name="title_activity_read">READ</string>
     <string name="title_activity_learn">LEARN</string>
     <string name="title_activity_ask">CONNECT</string>
+    <string name="title_activity_loginOrSignup">LOGIN OR SIGNUP</string>
     <string name="read">READ</string>
     <string name="readWithIcon">{faw-book}\nREAD</string>
     <string name="connect">CONNECT</string>
@@ -18,6 +19,8 @@
     <string name="angle_left">{faw-angle-left}</string>
     <string name="th_list">{faw-th-list}</string>
     <string name="angle_right">{faw-angle-right}</string>
+    <string name="login">LOGIN</string>
+    <string name="signup">SIGNUP</string>
 
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>

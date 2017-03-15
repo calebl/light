@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         final Intent readIntent = new Intent(this, ReadActivity.class);
-        final Intent askIntent = new Intent(this, LoginActivity.class);
+        final Intent askIntent = new Intent(this, LoginOrSignupActivity.class);
         final Intent learnIntent = new Intent(this, LearnActivity.class);
 
         Button read = (Button)findViewById(R.id.readButton);

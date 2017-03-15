@@ -80,18 +80,6 @@ public class LoginActivity extends LanguageSelectMenuActivity {
                     }
                 }
         );
-
-        final Intent signupIntent = new Intent(this, SignupActivity.class);
-        findViewById(R.id.sign_up_button).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-//                        overridePendingTransition(Animation.F);
-                        startActivity(signupIntent);
-                    }
-                }
-        );
     }
 
     @Override

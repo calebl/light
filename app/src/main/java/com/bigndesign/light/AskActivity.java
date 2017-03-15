@@ -1,7 +1,6 @@
 package com.bigndesign.light;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +19,7 @@ import im.delight.android.ddp.db.Document;
 /*
 The messaging portion of this app adapted from https://github.com/sinch/android-messaging-tutorial
  */
-public class AskActivity extends AppCompatActivity  implements MeteorCallback {
+public class AskActivity extends LanguageSelectMenuActivity  implements MeteorCallback {
     private String recipientId;
     private EditText messageBodyField;
     private String messageBody;
@@ -34,6 +33,10 @@ public class AskActivity extends AppCompatActivity  implements MeteorCallback {
         setContentView(R.layout.messaging);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         //Instance of MessageAdapter to display messages
         messagesList = (ListView) findViewById(R.id.listMessages);

@@ -49,6 +49,7 @@ public class LoginActivity extends LanguageSelectMenuActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         MeteorSingleton.getInstance().connect();
 

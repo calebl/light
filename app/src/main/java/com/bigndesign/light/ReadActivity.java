@@ -1,9 +1,7 @@
 package com.bigndesign.light;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -52,18 +50,6 @@ public class ReadActivity extends LanguageSelectMenuActivity {
 
         SharedPreferences settings = getSharedPreferences("language_pref", 0);
         language = settings.getString("language","none");
-
-        DrawableAwesome drable = new DrawableAwesome.DrawableAwesomeBuilder( getApplicationContext(),R.string.fa_comments).build();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setImageDrawable(drable);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(loginActivity);
-            }
-        });
 
         realm = getRealmDatabase();
 

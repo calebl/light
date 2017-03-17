@@ -110,7 +110,11 @@ public class ReadActivity extends LanguageSelectMenuActivity {
         webView.loadData(verses.getText(),"text/html; charset=utf-8", "UTF-8");
     }
 
-
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        realm.close();
+    }
 
     public void createPopupMenu() {
         //Load menu
@@ -252,6 +256,7 @@ public class ReadActivity extends LanguageSelectMenuActivity {
 
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .assetFile(realmFile)
+                .name(realmFile)
                 .build();
 
         return Realm.getInstance(config);

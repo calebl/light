@@ -34,7 +34,7 @@
         android:id="@+id/linearLayout">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/learnWithIcon"
             android:id="@+id/learnButton"
@@ -46,7 +46,7 @@
 
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/connectWithIcon"
             android:id="@+id/askButton"

@@ -47,7 +47,7 @@ public class LearnActivity extends LanguageSelectMenuActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent loginActivity = new Intent(getApplicationContext(), LoginOrSignupActivity.class);
                 startActivity(loginActivity);
             }
         });

@@ -28,8 +28,8 @@
 
     <string name="auth0_client_id">qrQYkbhyQTnJJHMfDGF0Yhz04DcKbFKW</string>
     <string name="auth0_domain">light-app.eu.auth0.com</string>
-    <string name="prompt_username_or_email">Username</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_username_or_email">Username: </string>
+    <string name="prompt_password">Password: </string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="error_field_required">Field Required</string>

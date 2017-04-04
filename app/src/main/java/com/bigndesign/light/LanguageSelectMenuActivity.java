@@ -23,11 +23,11 @@ public class LanguageSelectMenuActivity extends AppCompatActivity {
         String language = settings.getString("language","none");
 
         if(language.equals("arabic")){
-            toolbar.getMenu().getItem(0).setChecked(true);
-        } else if(language.equals("french")){
             toolbar.getMenu().getItem(1).setChecked(true);
-        } else if (language.equals("spanish")){
+        } else if(language.equals("french")){
             toolbar.getMenu().getItem(2).setChecked(true);
+        } else if (language.equals("spanish")){
+            toolbar.getMenu().getItem(3).setChecked(true);
         }
         return true;
     }

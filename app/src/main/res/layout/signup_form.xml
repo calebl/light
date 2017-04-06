@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#878787"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_username_or_email" />
         <EditText
@@ -24,6 +24,7 @@
             android:padding="15dp"
             android:inputType="textEmailAddress"
             android:maxLines="1"
+            android:gravity="center"
             android:theme="@style/LoginFormContainer"/>
     </LinearLayout>
 
@@ -35,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#878787"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_password" />
         <EditText
@@ -48,6 +49,7 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:gravity="center"
             android:theme="@style/LoginFormContainer"/>
     </LinearLayout>
     <LinearLayout
@@ -58,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#878787"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_verify_password" />
         <EditText
@@ -71,6 +73,7 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:gravity="center"
             android:theme="@style/LoginFormContainer"/>
     </LinearLayout>
 
@@ -87,6 +90,7 @@
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
             android:text="@string/sign_up"
+            android:textSize="18sp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 

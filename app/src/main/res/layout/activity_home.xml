@@ -13,48 +13,58 @@
     android:orientation="vertical">
 
     <Button
-        android:text="@string/readWithIcon"
+        android:drawableTop="@drawable/icon_book"
+        android:padding="30dp"
+        android:text="@string/read"
         android:id="@+id/readButton"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#f27935"
+        android:background="#425b62"
         android:layout_width="match_parent"
         android:elevation="0dp"
         android:textSize="24sp"
+        android:textStyle="bold"
         android:textColor="@android:color/white"
         style="?android:attr/borderlessButtonStyle"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:weightSum="1"
         android:background="#2d91aa"
         android:id="@+id/linearLayout">
 
         <Button
+            android:drawableTop="@drawable/icon_list"
+            android:paddingTop="50dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/learnWithIcon"
+            android:text="@string/learn"
             android:id="@+id/learnButton"
             android:layout_weight="0.5"
-            android:background="#14b9d6"
+            android:background="#78c5c7"
             android:textColor="#ffffff"
             android:textAllCaps="true"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
 
         <Button
+            android:drawableTop="@drawable/icon_speech"
+            android:paddingTop="50dp"
+            android:paddingBottom="35dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/connectWithIcon"
+            android:text="@string/connect"
             android:id="@+id/askButton"
             android:layout_weight="0.5"
-            android:background="#1fbba6"
+            android:background="#e6826f"
             android:textColor="#ffffff"
             android:textAllCaps="true"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>

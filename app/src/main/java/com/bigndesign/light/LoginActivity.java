@@ -41,17 +41,21 @@ public class LoginActivity extends LanguageSelectMenuActivity {
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
     private View focusView;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        title = (TextView) toolbar.findViewById(R.id.toolbar_title_connect);
+        title.setText(R.string.connect_title);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        findViewById(R.id.appbarLogin).bringToFront();
 
         MeteorSingleton.getInstance().connect();
 

@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#878787"
+            android:textColor="#ffffff"
             android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_username_or_email" />
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#878787"
+            android:textColor="#ffffff"
             android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_password" />
@@ -64,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textSize="18sp"
+            android:textColor="#e6826f"
+            android:background="#ffffff"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:paddingLeft="32dp"

@@ -47,6 +47,7 @@ public class ReadActivity extends LanguageSelectMenuActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        findViewById(R.id.appbarRead).bringToFront();
 
         SharedPreferences settings = getSharedPreferences("language_pref", 0);
         language = settings.getString("language","none");

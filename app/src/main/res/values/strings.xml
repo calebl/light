@@ -21,6 +21,8 @@
     <string name="angle_right">{faw-angle-right}</string>
     <string name="login">LOGIN</string>
     <string name="signup">SIGNUP</string>
+    <string name="learn_title">LEARN</string>
+    <string name="connect_title">CONNECT</string>
 
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>

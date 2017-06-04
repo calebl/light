@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.bigndesign.light.adapters.Adapters.ExpandableListAdapter;
 
@@ -31,13 +32,21 @@ public class LearnActivity extends LanguageSelectMenuActivity {
     private Map<String, List<String>> faqCollection;
     private ExpandableListView expListView;
     private JSONArray data;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        title = (TextView) toolbar.findViewById(R.id.toolbar_title_learn);
+        title.setText(R.string.learn_title);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        findViewById(R.id.appbarLearn).bringToFront();
 
         //Ask a question icon
         DrawableAwesome drable = new DrawableAwesome.DrawableAwesomeBuilder( getApplicationContext(),R.string.fa_comments).build();
@@ -51,7 +60,7 @@ public class LearnActivity extends LanguageSelectMenuActivity {
                 startActivity(loginActivity);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //Load faq data
         loadText();

@@ -2,25 +2,20 @@ package com.bigndesign.light;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by Greg on 3/14/2017.
  */
 
 public class LoginOrSignupActivity extends LanguageSelectMenuActivity {
+    private TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_or_signup);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         final Intent loginIntent = new Intent(this, LoginActivity.class);
         final Intent signupIntent = new Intent(this, SignupActivity.class);

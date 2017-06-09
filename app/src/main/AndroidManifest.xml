@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".LanguageSelectorActivity">
+        <activity android:name=".LanguageSelectorActivity"
+            android:theme="@style/AppTheme.LanguageSelector">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -17,7 +17,10 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="70dp"
+            android:minHeight="70dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
             android:background="#78c5c7"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView

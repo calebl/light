@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +25,7 @@ import im.delight.android.ddp.ResultListener;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends LanguageSelectMenuActivity {
 
     /**
      * The default email to populate the email field with.
@@ -51,17 +50,21 @@ public class SignupActivity extends AppCompatActivity {
     private TextView mLoginStatusMessageView;
     private View focusView;
     private EditText mPasswordVerifyView;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        title = (TextView) toolbar.findViewById(R.id.toolbar_title_connect);
+        title.setText(R.string.connect_title);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        findViewById(R.id.appbarSignup).bringToFront();
 
         MeteorSingleton.getInstance().connect();
 

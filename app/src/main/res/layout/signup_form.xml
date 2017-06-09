@@ -13,9 +13,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#878787"
+            android:textColor="#ffffff"
             android:textSize="20sp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="26dp"
             android:text="@string/prompt_username_or_email" />
         <EditText
             android:id="@+id/username"
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:inputType="textEmailAddress"
+            android:textColor="#ffffff"
             android:maxLines="1"
             android:gravity="center"
             android:theme="@style/LoginFormContainer"/>
@@ -35,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#878787"
+            android:textColor="#ffffff"
             android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_password" />
@@ -46,6 +47,7 @@
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/sign_up"
             android:padding="15dp"
+            android:textColor="#ffffff"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -59,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#878787"
+            android:textColor="#ffffff"
             android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:text="@string/prompt_verify_password" />
@@ -70,6 +72,7 @@
             android:imeActionId="@+id/sign_up"
             android:imeActionLabel="@string/sign_up"
             android:padding="15dp"
+            android:textColor="#ffffff"
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -91,6 +94,8 @@
             android:paddingRight="32dp"
             android:text="@string/sign_up"
             android:textSize="18sp"
+            android:textColor="#e6826f"
+            android:background="#ffffff"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 

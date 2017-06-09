@@ -33,6 +33,8 @@
         <item name="colorPrimary">@color/colorConnect</item>
         <!--<item name="colorPrimaryDark">@color/colorRead</item>-->
     </style>
+    <style name="AppTheme.LanguageSelector" parent="AppTheme.NoActionBar">
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -3,54 +3,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bigndesign.light.LanguageSelectorActivity"
-    android:background="#aaaaaa">
+    android:background="#ffffff">
 
-    <RelativeLayout
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="false"
         android:layout_centerInParent="true">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Arabic"
+            android:text="عربى"
             android:id="@+id/selectArabic"
+            android:textSize="44sp"
+            android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="0dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:clickable="true"
-            android:enabled="true" />
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"
+            android:enabled="true"
+            android:textColor="#ffffff"
+            android:background="#435b61"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="French"
+            android:text="Francais"
             android:id="@+id/selectFrench"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:enabled="true"
-            android:clickable="true" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="44sp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textColor="#ffffff"
+            android:background="#435b61"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Spanish"
+            android:text="Español"
             android:id="@+id/selectSpanish"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:enabled="true"
-            android:clickable="true" />
-    </RelativeLayout>
+            android:textSize="44sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textColor="#ffffff"
+            android:background="#435b61"/>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

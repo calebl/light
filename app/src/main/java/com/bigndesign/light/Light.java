@@ -14,7 +14,7 @@ public class Light extends Application {
 
         Realm.init(this);
 
-        String serverUrl = "wss://light-server-yrllrmcjbl.now.sh/websocket";
+        String serverUrl = "ws://servethelight.com/websocket";
 
         //PRODUCTION
         MeteorSingleton.createInstance(this, serverUrl, new InMemoryDatabase());

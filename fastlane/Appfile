@@ -1,0 +1,2 @@
+json_key_file "//Users/caleb/Dropbox/Freelance/Caleb\ LeNoir\ LLC/Google Play Android Developer-7dd08ae5849f.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "com.bigndesign.light" # e.g. com.krausefx.app

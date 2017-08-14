@@ -2,20 +2,28 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'light'
+            keyPassword 'GxzUuDpryhAkndvF3QRaJXzR'
+            storeFile file('/Users/caleb/Dropbox/Freelance/Caleb LeNoir LLC/Android/keystore.jks')
+            storePassword 'GxzUuDpryhAkndvF3QRaJXzR'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
-
     defaultConfig {
         applicationId "com.bigndesign.light"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
+        versionCode 2
         versionName "1.0"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             debuggable true
@@ -40,9 +48,7 @@ dependencies {
     compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
     compile 'com.facebook.stetho:stetho:1.4.2'
     compile 'com.uphyca:stetho_realm:2.0.0'
-
     compile 'com.auth0.android:lock:2.0.0'
-
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
     debugCompile 'com.uphyca:stetho_realm:2.0.0'
 }

@@ -28,7 +28,12 @@ platform :android do
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "assembleRelease")
-    crashlytics
+    # crashlytics
+
+    increment_version_code(
+            gradle_file_path: "app/build.gradle"
+      )
+    supply(track: "beta")
 
     # sh "your_script.sh"
     # You can also use other beta testing services here
@@ -37,6 +42,8 @@ platform :android do
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: "assembleRelease")
+
+    increment_version_number_in_plist
     supply
   end
 

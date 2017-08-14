@@ -31,8 +31,8 @@ platform :android do
     # crashlytics
 
     increment_version_code(
-            gradle_file_path: "app/build.gradle"
-      )
+        gradle_file_path: "app/build.gradle"
+    )
     supply(track: "beta")
 
     # sh "your_script.sh"
@@ -43,7 +43,9 @@ platform :android do
   lane :deploy do
     gradle(task: "assembleRelease")
 
-    increment_version_number_in_plist
+    increment_version_code(
+        gradle_file_path: "app/build.gradle"
+    )
     supply
   end
 

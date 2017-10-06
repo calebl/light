@@ -19,6 +19,8 @@ import com.bigndesign.light.R;
 import java.util.List;
 import java.util.Map;
 
+import us.feras.mdv.MarkdownView;
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Activity context;
@@ -50,9 +52,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.child_item, null);
         }
 
-        TextView item = (TextView) convertView.findViewById(R.id.faq);
+        MarkdownView item = (MarkdownView) convertView.findViewById(R.id.faq);
 
-        item.setText(faq);
+        item.loadMarkdown(faq);
         return convertView;
     }
 

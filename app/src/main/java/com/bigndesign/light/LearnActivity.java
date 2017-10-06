@@ -100,9 +100,9 @@ public class LearnActivity extends LanguageSelectMenuActivity {
         try{
             for (int i = 0; i < data.length(); i++){
                 JSONObject dataObj = data.getJSONObject(i);
-                groupList.add(dataObj.getString("faq_id") + dataObj.getString("title"));
-                loadChild(dataObj.getString("faq_id") + dataObj.getString("content"));
-                faqCollection.put(dataObj.getString("faq_id") + dataObj.getString("title"), childList);
+                groupList.add(dataObj.getString("title"));
+                loadChild(dataObj.getString("content"));
+                faqCollection.put(dataObj.getString("title"), childList);
             }
         }catch (JSONException e){
             e.printStackTrace();

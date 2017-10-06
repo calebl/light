@@ -17,6 +17,11 @@ public class LoginOrSignupActivity extends LanguageSelectMenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_or_signup);
 
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         final Intent loginIntent = new Intent(this, LoginActivity.class);
         final Intent signupIntent = new Intent(this, SignupActivity.class);
 

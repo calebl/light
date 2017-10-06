@@ -13,19 +13,21 @@
     android:orientation="vertical">
 
     <Button
-        android:drawableTop="@drawable/icon_book"
-        android:padding="30dp"
-        android:text="@string/read"
         android:id="@+id/readButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#425b62"
-        android:layout_width="match_parent"
+        android:drawableTop="@drawable/icon_book"
         android:elevation="0dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="@string/read"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -37,34 +39,36 @@
         android:id="@+id/linearLayout">
 
         <Button
-            android:drawableTop="@drawable/icon_list"
-            android:paddingTop="50dp"
+            android:id="@+id/learnButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/learn"
-            android:id="@+id/learnButton"
             android:layout_weight="0.5"
             android:background="#78c5c7"
-            android:textColor="#ffffff"
+            android:drawableTop="@drawable/icon_list"
+            android:gravity="center"
+            android:paddingTop="50dp"
+            android:text="@string/learn"
             android:textAllCaps="true"
+            android:textColor="#ffffff"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
 
         <Button
-            android:drawableTop="@drawable/icon_speech"
-            android:paddingTop="50dp"
-            android:paddingBottom="35dp"
+            android:id="@+id/askButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/connect"
-            android:id="@+id/askButton"
             android:layout_weight="0.5"
             android:background="#e6826f"
-            android:textColor="#ffffff"
+            android:drawableTop="@drawable/icon_speech"
+            android:gravity="center"
+            android:paddingBottom="35dp"
+            android:paddingTop="50dp"
+            android:text="@string/connect"
             android:textAllCaps="true"
+            android:textColor="#ffffff"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

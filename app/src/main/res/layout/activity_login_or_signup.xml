@@ -19,7 +19,7 @@
         android:textColor="@android:color/white" />
 
     <Button
-        android:text="@string/signup"
+        android:text="@string/sign_up"
         android:id="@+id/signupButton"
         android:layout_height="wrap_content"
         android:layout_weight="1"
